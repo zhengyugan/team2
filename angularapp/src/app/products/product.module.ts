@@ -16,8 +16,10 @@ import { IonicModule } from '@ionic/angular';
     ConvertToSpacesPipe
   ],
   imports: [
-    RouterModule.forRoot([
+    RouterModule.forRoot([   
       { path: 'products', component: ProductListComponent },
+      { path: '', redirectTo: 'products', pathMatch: 'full' },
+      { path: '**', redirectTo: 'products', pathMatch: 'full' },
       {
         path: 'products/:id',
         canActivate: [ProductDetailGuard],
