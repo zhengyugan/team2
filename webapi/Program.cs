@@ -26,13 +26,13 @@ var connection = String.Empty;
 if (builder.Environment.IsDevelopment())
 {
 	builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.Development.json");
-	connection = builder.Configuration.GetConnectionString("SqlConnString");
+	connection = builder.Configuration.GetConnectionString("SqlConnStringDev");
 }
 else
 {
-	connection = Environment.GetEnvironmentVariable("SqlConnString");
+	connection = builder.Configuration.GetConnectionString("SqlConnStringProd");
 }
-
+Console.WriteLine(connection);
 builder.Services.AddDbContext<DataContext>(options =>
 	options.UseSqlServer(connection));
 
