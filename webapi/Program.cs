@@ -32,7 +32,7 @@ else
 {
 	connection = builder.Configuration.GetConnectionString("SqlConnStringProd");
 }
-Console.WriteLine(connection);
+
 builder.Services.AddDbContext<DataContext>(options =>
 	options.UseSqlServer(connection));
 
