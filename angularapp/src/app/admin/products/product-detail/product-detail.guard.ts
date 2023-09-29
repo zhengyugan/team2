@@ -15,7 +15,7 @@ export class ProductDetailGuard {
       const id = Number(route.paramMap.get('id'));
       if (isNaN(id) || id < 1) {
         alert('Invalid product id');
-        this.router.navigate(['/products']);
+        this.router.navigate(['/admin/products']);
         return false;
       }
     return true;

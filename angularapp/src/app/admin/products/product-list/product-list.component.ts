@@ -1,17 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { IProduct } from './product';
-import { ProductService } from './product.service';
+import { IProduct } from '../product';
+import { ProductService } from '../product.service';
 
 @Component({
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  templateUrl: '../product-list/product-list.component.html',
+  styleUrls: ['../product-list/product-list.component.css']
 })
 export class ProductListComponent implements OnInit, OnDestroy {
   pageTitle: string = "Product List";
   imageWidth: number = 50;
   imageMargin: number = 2;
-  showImage: boolean = false;
+  showImage: boolean = true;
   errorMessage: string = "";
   sub!: Subscription;
 
