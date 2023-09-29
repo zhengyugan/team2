@@ -30,6 +30,9 @@ namespace webapi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("cart_id"));
 
+                    b.Property<int>("cart_quantity")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("created_at")
                         .HasColumnType("datetime2");
 
@@ -37,9 +40,6 @@ namespace webapi.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("product_id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("quantity")
                         .HasColumnType("int");
 
                     b.Property<int>("user_id")
@@ -67,10 +67,6 @@ namespace webapi.Migrations
                     b.Property<DateTime>("delete_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("discount_id")
                         .HasColumnType("int");
 
@@ -80,11 +76,15 @@ namespace webapi.Migrations
                     b.Property<DateTime>("moodified_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("name")
+                    b.Property<string>("product_description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("sku")
+                    b.Property<string>("product_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("product_sku")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -101,22 +101,22 @@ namespace webapi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("category_id"));
 
+                    b.Property<string>("category_description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("category_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("created_at")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("delete_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("moodified_at")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("category_id");
 
@@ -131,36 +131,36 @@ namespace webapi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("inventory_id"));
 
-                    b.Property<string>("color")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("created_at")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("image_url")
+                    b.Property<string>("inventory_color")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("length")
+                    b.Property<string>("inventory_image_url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("inventory_length")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("inventory_price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("inventory_quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("inventory_size")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("modified_at")
                         .HasColumnType("datetime2");
-
-                    b.Property<double>("price")
-                        .HasColumnType("float");
-
-                    b.Property<int>("quantity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("size")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("inventory_id");
 

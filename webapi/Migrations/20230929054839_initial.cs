@@ -19,7 +19,7 @@ namespace webapi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     user_id = table.Column<int>(type: "int", nullable: false),
                     product_id = table.Column<int>(type: "int", nullable: false),
-                    quantity = table.Column<int>(type: "int", nullable: false),
+                    cart_quantity = table.Column<int>(type: "int", nullable: false),
                     created_at = table.Column<DateTime>(type: "datetime2", nullable: false),
                     modified_at = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -34,9 +34,9 @@ namespace webapi.Migrations
                 {
                     product_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    sku = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    product_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    product_description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    product_sku = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     category_id = table.Column<int>(type: "int", nullable: false),
                     inventory_id = table.Column<int>(type: "int", nullable: false),
                     discount_id = table.Column<int>(type: "int", nullable: false),
@@ -55,8 +55,8 @@ namespace webapi.Migrations
                 {
                     category_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    category_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    category_description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     delete_at = table.Column<DateTime>(type: "datetime2", nullable: false),
                     moodified_at = table.Column<DateTime>(type: "datetime2", nullable: false),
                     created_at = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -72,12 +72,12 @@ namespace webapi.Migrations
                 {
                     inventory_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    quantity = table.Column<int>(type: "int", nullable: false),
-                    size = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    color = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    length = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    price = table.Column<double>(type: "float", nullable: false),
-                    image_url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    inventory_quantity = table.Column<int>(type: "int", nullable: false),
+                    inventory_size = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    inventory_color = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    inventory_length = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    inventory_price = table.Column<double>(type: "float", nullable: false),
+                    inventory_image_url = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     created_at = table.Column<DateTime>(type: "datetime2", nullable: false),
                     modified_at = table.Column<DateTime>(type: "datetime2", nullable: false),
                     deleted_at = table.Column<DateTime>(type: "datetime2", nullable: false)

@@ -6,9 +6,9 @@ namespace webapi.Models
 	{
         [Key]
         public int product_id { get; set; }
-        public string  name { get; set; }
-        public string description { get; set; }
-        public string sku { get; set; }
+        public string  product_name { get; set; }
+        public string product_description { get; set; }
+        public string product_sku { get; set; }
         public int category_id { get; set; }
         public int inventory_id { get; set; }
         public int discount_id { get; set; }
