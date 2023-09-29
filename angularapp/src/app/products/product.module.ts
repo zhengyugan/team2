@@ -5,6 +5,7 @@ import { ConvertToSpacesPipe } from '../shared/convert-to-spaces.pipe';
 import { RouterModule } from '@angular/router';
 import { ProductDetailGuard } from './product-detail.guard';
 import { SharedModule } from '../shared/shared.module';
+import { IonicModule } from '@ionic/angular';
 
 
 
@@ -15,15 +16,18 @@ import { SharedModule } from '../shared/shared.module';
     ConvertToSpacesPipe
   ],
   imports: [
-    RouterModule.forRoot([
+    RouterModule.forRoot([   
       { path: 'products', component: ProductListComponent },
+      { path: '', redirectTo: 'products', pathMatch: 'full' },
+      { path: '**', redirectTo: 'products', pathMatch: 'full' },
       {
         path: 'products/:id',
         canActivate: [ProductDetailGuard],
         component: ProductDetailComponent
       }
     ]),
-    SharedModule
+    SharedModule,
+    IonicModule
   ]
 })
 export class ProductModule { }

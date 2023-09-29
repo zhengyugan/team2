@@ -1,3 +1,30 @@
 .nav-link {
   font-size: large;
 }
+
+.header,.footer,.content{
+  position: absolute; 
+  left: 0; 
+  width: 100%;
+}
+.header,.footer{
+  overflow: hidden; 
+
+  position: fixed;
+}
+
+.header{
+  top: 0;
+  height: 100px;
+}
+
+.footer{
+bottom: 0;
+height: 50px;
+}
+
+.content{
+  top: 100px; 
+  bottom: 50px; 
+  overflow: auto; 
+}
