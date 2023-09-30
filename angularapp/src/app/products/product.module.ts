@@ -6,8 +6,7 @@ import { RouterModule } from '@angular/router';
 import { ProductDetailGuard } from './product-detail.guard';
 import { SharedModule } from '../shared/shared.module';
 import { IonicModule } from '@ionic/angular';
-
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';  
 
 @NgModule({
   declarations: [
@@ -19,7 +18,6 @@ import { IonicModule } from '@ionic/angular';
     RouterModule.forRoot([   
       { path: 'products', component: ProductListComponent },
       { path: '', redirectTo: 'products', pathMatch: 'full' },
-      { path: '**', redirectTo: 'products', pathMatch: 'full' },
       {
         path: 'products/:id',
         canActivate: [ProductDetailGuard],
@@ -27,7 +25,9 @@ import { IonicModule } from '@ionic/angular';
       }
     ]),
     SharedModule,
-    IonicModule
+    IonicModule,
+    FormsModule,  
+    ReactiveFormsModule 
   ]
 })
 export class ProductModule { }

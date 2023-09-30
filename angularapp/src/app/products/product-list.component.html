@@ -29,7 +29,7 @@
                 <span class="span">(1)</span>
               </div>
               <h3 class="h3">
-                <a href="#" class="card-title">{{product.productName}}</a>
+                <a [routerLink]="['/products', product.productId]" class="card-title">{{product.productName}}</a>
               </h3>
               <data class="card-price" value="15">{{product.price | currency:"MYR":"symbol":"1.2-2"}}</data>
             </div>
