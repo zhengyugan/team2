@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webapi.Models;
 
@@ -11,9 +12,11 @@ using webapi.Models;
 namespace webapi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230930053010_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,23 +34,21 @@ namespace webapi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<DateTime>("created_at")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("created_by")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("deleted_at")
+                    b.Property<DateTime>("deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("deleted_by")
+                    b.Property<int>("deleted_by")
                         .HasColumnType("int");
 
-                    b.Property<int?>("modified_by")
+                    b.Property<int>("modified_by")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("moodified_at")
+                    b.Property<DateTime>("moodified_at")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("product_id")
@@ -76,23 +77,21 @@ namespace webapi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<DateTime>("created_at")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("created_by")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("deleted_at")
+                    b.Property<DateTime>("deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("deleted_by")
+                    b.Property<int>("deleted_by")
                         .HasColumnType("int");
 
-                    b.Property<int?>("modified_by")
+                    b.Property<int>("modified_by")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("moodified_at")
+                    b.Property<DateTime>("moodified_at")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("order_id")
@@ -118,23 +117,21 @@ namespace webapi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<DateTime>("created_at")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("created_by")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("deleted_at")
+                    b.Property<DateTime>("deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("deleted_by")
+                    b.Property<int>("deleted_by")
                         .HasColumnType("int");
 
-                    b.Property<int?>("modified_by")
+                    b.Property<int>("modified_by")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("moodified_at")
+                    b.Property<DateTime>("moodified_at")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("order_status")
@@ -168,27 +165,25 @@ namespace webapi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<DateTime>("created_at")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("created_by")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("deleted_at")
+                    b.Property<DateTime>("deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("deleted_by")
+                    b.Property<int>("deleted_by")
                         .HasColumnType("int");
 
                     b.Property<string>("desc")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("modified_by")
+                    b.Property<int>("modified_by")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("moodified_at")
+                    b.Property<DateTime>("moodified_at")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("name")
@@ -213,27 +208,25 @@ namespace webapi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("created_at")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("created_by")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("deleted_at")
+                    b.Property<DateTime>("deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("deleted_by")
+                    b.Property<int>("deleted_by")
                         .HasColumnType("int");
 
                     b.Property<string>("length")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("modified_by")
+                    b.Property<int>("modified_by")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("moodified_at")
+                    b.Property<DateTime>("moodified_at")
                         .HasColumnType("datetime2");
 
                     b.Property<double>("price")
@@ -263,27 +256,25 @@ namespace webapi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<DateTime>("created_at")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("created_by")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("deleted_at")
+                    b.Property<DateTime>("deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("deleted_by")
+                    b.Property<int>("deleted_by")
                         .HasColumnType("int");
 
                     b.Property<string>("desc")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("modified_by")
+                    b.Property<int>("modified_by")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("moodified_at")
+                    b.Property<DateTime>("moodified_at")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("name")
@@ -315,6 +306,7 @@ namespace webapi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("address_line2")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("city")
@@ -326,17 +318,15 @@ namespace webapi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("created_at")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("created_by")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("deleted_at")
+                    b.Property<DateTime>("deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("deleted_by")
+                    b.Property<int>("deleted_by")
                         .HasColumnType("int");
 
                     b.Property<string>("first_name")
@@ -348,12 +338,13 @@ namespace webapi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("mobile")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("modified_by")
+                    b.Property<int>("modified_by")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("moodified_at")
+                    b.Property<DateTime>("moodified_at")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("postal_code")
@@ -361,6 +352,7 @@ namespace webapi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("telephone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("user_id")
@@ -380,20 +372,19 @@ namespace webapi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<DateTime>("created_at")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("created_by")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("deleted_at")
+                    b.Property<DateTime>("deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("deleted_by")
+                    b.Property<int>("deleted_by")
                         .HasColumnType("int");
 
                     b.Property<string>("email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("first_name")
@@ -405,12 +396,13 @@ namespace webapi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("mobile")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("modified_by")
+                    b.Property<int>("modified_by")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("moodified_at")
+                    b.Property<DateTime>("moodified_at")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("password")
@@ -422,6 +414,7 @@ namespace webapi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("telephone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("username")
