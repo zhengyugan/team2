@@ -1,9 +1,12 @@
-﻿namespace webapi.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace webapi.Models
 {
 	public class UserAddresses
 	{
         public int id { get; set; }
-        public int user_id { get; set; }
+        [ForeignKey("user_id")]
+        public required Users user { get; set; }
         public string address_line1 { get; set; }
         public string? address_line2 { get; set; }
         public string city { get; set; }

@@ -1,10 +1,14 @@
-﻿namespace webapi.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace webapi.Models
 {
 	public class OrderItems
 	{
         public int id { get; set; }
-        public int order_id { get; set; }
-        public int product_variant_id { get; set; }
+        [ForeignKey("order_id")]
+        public required Orders order { get; set; }
+        [ForeignKey("product_variant_id")]
+        public required ProductVariant product_variant { get; set; }
         public int quantity { get; set; }
 		public DateTime? deleted_at { get; set; }
 		public int? deleted_by { get; set; }
