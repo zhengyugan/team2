@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace webapi.Models
 {
@@ -6,9 +7,10 @@ namespace webapi.Models
 	{
         [Key]
         public int id { get; set; }
-        public int user_id { get; set; }
-        public int product_variant_id { get; set; }
-        public int product_id { get; set; }
+        [ForeignKey("user_id")]
+        public required Users user { get; set; }
+        [ForeignKey("product_variant_id")]
+        public required ProductCategories product_variant { get; set; }
         public int quantity { get; set; }
 		public DateTime? deleted_at { get; set; }
 		public int? deleted_by { get; set; }

@@ -1,14 +1,10 @@
-﻿using System.Reflection.Metadata;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace webapi.Models
 {
-	public class DataContext:DbContext
+	public class DataContext : DbContext
 	{
-        public DataContext(DbContextOptions<DataContext> options) :base(options)
-        {
-            
-        }
+        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<Products> products { get; set; }
 		public DbSet<ProductCategories> product_categories { get; set; }
@@ -53,6 +49,5 @@ namespace webapi.Models
 				.Property(b => b.created_at)
 				.HasDefaultValueSql("getdate()");
 		}
-
 	}
 }

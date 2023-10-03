@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webapi.Models;
 
@@ -11,9 +12,11 @@ using webapi.Models;
 namespace webapi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20231003014226_Migration_Added_PK")]
+    partial class Migration_Added_PK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,20 +53,20 @@ namespace webapi.Migrations
                     b.Property<DateTime?>("moodified_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("product_variant_id")
+                    b.Property<int>("product_variantid")
                         .HasColumnType("int");
 
                     b.Property<int>("quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("user_id")
+                    b.Property<int>("userid")
                         .HasColumnType("int");
 
                     b.HasKey("id");
 
-                    b.HasIndex("product_variant_id");
+                    b.HasIndex("product_variantid");
 
-                    b.HasIndex("user_id");
+                    b.HasIndex("userid");
 
                     b.ToTable("carts");
                 });
@@ -96,10 +99,10 @@ namespace webapi.Migrations
                     b.Property<DateTime?>("moodified_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("order_id")
+                    b.Property<int>("orderid")
                         .HasColumnType("int");
 
-                    b.Property<int>("product_variant_id")
+                    b.Property<int>("product_variantid")
                         .HasColumnType("int");
 
                     b.Property<int>("quantity")
@@ -107,9 +110,9 @@ namespace webapi.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("order_id");
+                    b.HasIndex("orderid");
 
-                    b.HasIndex("product_variant_id");
+                    b.HasIndex("product_variantid");
 
                     b.ToTable("order_items");
                 });
@@ -156,12 +159,12 @@ namespace webapi.Migrations
                     b.Property<float>("total")
                         .HasColumnType("real");
 
-                    b.Property<int>("user_id")
+                    b.Property<int>("usersid")
                         .HasColumnType("int");
 
                     b.HasKey("id");
 
-                    b.HasIndex("user_id");
+                    b.HasIndex("usersid");
 
                     b.ToTable("orders");
                 });
@@ -246,7 +249,7 @@ namespace webapi.Migrations
                     b.Property<double>("price")
                         .HasColumnType("float");
 
-                    b.Property<int>("product_id")
+                    b.Property<int>("productid")
                         .HasColumnType("int");
 
                     b.Property<int>("quantity")
@@ -258,7 +261,7 @@ namespace webapi.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("product_id");
+                    b.HasIndex("productid");
 
                     b.ToTable("product_variants");
                 });
@@ -299,7 +302,7 @@ namespace webapi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("product_category_id")
+                    b.Property<int>("product_categoryid")
                         .HasColumnType("int");
 
                     b.Property<string>("url")
@@ -308,7 +311,7 @@ namespace webapi.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("product_category_id");
+                    b.HasIndex("product_categoryid");
 
                     b.ToTable("products");
                 });
@@ -374,12 +377,12 @@ namespace webapi.Migrations
                     b.Property<string>("telephone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("user_id")
+                    b.Property<int>("userid")
                         .HasColumnType("int");
 
                     b.HasKey("id");
 
-                    b.HasIndex("user_id");
+                    b.HasIndex("userid");
 
                     b.ToTable("user_addresses");
                 });
@@ -450,13 +453,13 @@ namespace webapi.Migrations
                 {
                     b.HasOne("webapi.Models.ProductCategories", "product_variant")
                         .WithMany()
-                        .HasForeignKey("product_variant_id")
+                        .HasForeignKey("product_variantid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("webapi.Models.Users", "user")
                         .WithMany()
-                        .HasForeignKey("user_id")
+                        .HasForeignKey("userid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -469,13 +472,13 @@ namespace webapi.Migrations
                 {
                     b.HasOne("webapi.Models.Orders", "order")
                         .WithMany()
-                        .HasForeignKey("order_id")
+                        .HasForeignKey("orderid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("webapi.Models.ProductVariant", "product_variant")
                         .WithMany()
-                        .HasForeignKey("product_variant_id")
+                        .HasForeignKey("product_variantid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -488,7 +491,7 @@ namespace webapi.Migrations
                 {
                     b.HasOne("webapi.Models.Users", "users")
                         .WithMany()
-                        .HasForeignKey("user_id")
+                        .HasForeignKey("usersid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -499,7 +502,7 @@ namespace webapi.Migrations
                 {
                     b.HasOne("webapi.Models.Products", "product")
                         .WithMany()
-                        .HasForeignKey("product_id")
+                        .HasForeignKey("productid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -510,7 +513,7 @@ namespace webapi.Migrations
                 {
                     b.HasOne("webapi.Models.ProductCategories", "product_category")
                         .WithMany()
-                        .HasForeignKey("product_category_id")
+                        .HasForeignKey("product_categoryid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -521,7 +524,7 @@ namespace webapi.Migrations
                 {
                     b.HasOne("webapi.Models.Users", "user")
                         .WithMany()
-                        .HasForeignKey("user_id")
+                        .HasForeignKey("userid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
