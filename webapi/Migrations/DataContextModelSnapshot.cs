@@ -22,21 +22,35 @@ namespace webapi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("webapi.Models.Cart", b =>
+            modelBuilder.Entity("webapi.Models.Carts", b =>
                 {
-                    b.Property<int>("cart_id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("cart_id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<DateTime>("created_at")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<int>("created_by")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("modified_at")
+                    b.Property<int?>("deleted_by")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("modified_by")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("moodified_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("product_id")
+                    b.Property<int>("product_variant_id")
                         .HasColumnType("int");
 
                     b.Property<int>("quantity")
@@ -45,115 +59,195 @@ namespace webapi.Migrations
                     b.Property<int>("user_id")
                         .HasColumnType("int");
 
-                    b.HasKey("cart_id");
+                    b.HasKey("id");
 
-                    b.ToTable("CartItem");
+                    b.HasIndex("product_variant_id");
+
+                    b.HasIndex("user_id");
+
+                    b.ToTable("carts");
                 });
 
-            modelBuilder.Entity("webapi.Models.Product", b =>
+            modelBuilder.Entity("webapi.Models.OrderItems", b =>
                 {
-                    b.Property<int>("product_id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("product_id"));
-
-                    b.Property<int>("category_id")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<DateTime>("created_at")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<int>("created_by")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("delete_at")
+                    b.Property<int?>("deleted_by")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("modified_by")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("moodified_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("description")
+                    b.Property<int>("order_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("product_variant_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("order_id");
+
+                    b.HasIndex("product_variant_id");
+
+                    b.ToTable("order_items");
+                });
+
+            modelBuilder.Entity("webapi.Models.Orders", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime>("created_at")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<int>("created_by")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("deleted_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("deleted_by")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("modified_by")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("moodified_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("order_status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("discount_id")
+                    b.Property<int>("payment_id")
                         .HasColumnType("int");
 
-                    b.Property<int>("inventory_id")
+                    b.Property<string>("payment_status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("total")
+                        .HasColumnType("real");
+
+                    b.Property<int>("user_id")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("moodified_at")
+                    b.HasKey("id");
+
+                    b.HasIndex("user_id");
+
+                    b.ToTable("orders");
+                });
+
+            modelBuilder.Entity("webapi.Models.ProductCategories", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime>("created_at")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<int>("created_by")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("deleted_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("deleted_by")
+                        .HasColumnType("int");
+
+                    b.Property<string>("desc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("modified_by")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("moodified_at")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("sku")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("id");
 
-                    b.HasKey("product_id");
-
-                    b.ToTable("Product");
+                    b.ToTable("product_categories");
                 });
 
-            modelBuilder.Entity("webapi.Models.ProductCategory", b =>
+            modelBuilder.Entity("webapi.Models.ProductVariant", b =>
                 {
-                    b.Property<int>("category_id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("category_id"));
-
-                    b.Property<DateTime>("created_at")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("delete_at")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("moodified_at")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("category_id");
-
-                    b.ToTable("ProductCategory");
-                });
-
-            modelBuilder.Entity("webapi.Models.ProductVariation", b =>
-                {
-                    b.Property<int>("inventory_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("inventory_id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<string>("color")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("created_at")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<int>("created_by")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("deleted_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("deleted_at")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("image_url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("deleted_by")
+                        .HasColumnType("int");
 
                     b.Property<string>("length")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("modified_at")
+                    b.Property<int?>("modified_by")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("moodified_at")
                         .HasColumnType("datetime2");
 
                     b.Property<double>("price")
                         .HasColumnType("float");
+
+                    b.Property<int>("product_id")
+                        .HasColumnType("int");
 
                     b.Property<int>("quantity")
                         .HasColumnType("int");
@@ -162,9 +256,276 @@ namespace webapi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("inventory_id");
+                    b.HasKey("id");
 
-                    b.ToTable("ProductVariation");
+                    b.HasIndex("product_id");
+
+                    b.ToTable("product_variants");
+                });
+
+            modelBuilder.Entity("webapi.Models.Products", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime>("created_at")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<int>("created_by")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("deleted_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("deleted_by")
+                        .HasColumnType("int");
+
+                    b.Property<string>("desc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("modified_by")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("moodified_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("product_category_id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("product_category_id");
+
+                    b.ToTable("products");
+                });
+
+            modelBuilder.Entity("webapi.Models.UserAddresses", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("address_line1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("address_line2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("city")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("created_at")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<int>("created_by")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("deleted_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("deleted_by")
+                        .HasColumnType("int");
+
+                    b.Property<string>("first_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("last_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("mobile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("modified_by")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("moodified_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("postal_code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("telephone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("user_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("user_id");
+
+                    b.ToTable("user_addresses");
+                });
+
+            modelBuilder.Entity("webapi.Models.Users", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime>("created_at")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<int>("created_by")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("deleted_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("deleted_by")
+                        .HasColumnType("int");
+
+                    b.Property<string>("email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("first_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("last_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("mobile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("modified_by")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("moodified_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("telephone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("users");
+                });
+
+            modelBuilder.Entity("webapi.Models.Carts", b =>
+                {
+                    b.HasOne("webapi.Models.ProductCategories", "product_variant")
+                        .WithMany()
+                        .HasForeignKey("product_variant_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("webapi.Models.Users", "user")
+                        .WithMany()
+                        .HasForeignKey("user_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("product_variant");
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("webapi.Models.OrderItems", b =>
+                {
+                    b.HasOne("webapi.Models.Orders", "order")
+                        .WithMany()
+                        .HasForeignKey("order_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("webapi.Models.ProductVariant", "product_variant")
+                        .WithMany()
+                        .HasForeignKey("product_variant_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("order");
+
+                    b.Navigation("product_variant");
+                });
+
+            modelBuilder.Entity("webapi.Models.Orders", b =>
+                {
+                    b.HasOne("webapi.Models.Users", "users")
+                        .WithMany()
+                        .HasForeignKey("user_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("users");
+                });
+
+            modelBuilder.Entity("webapi.Models.ProductVariant", b =>
+                {
+                    b.HasOne("webapi.Models.Products", "product")
+                        .WithMany()
+                        .HasForeignKey("product_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("product");
+                });
+
+            modelBuilder.Entity("webapi.Models.Products", b =>
+                {
+                    b.HasOne("webapi.Models.ProductCategories", "product_category")
+                        .WithMany()
+                        .HasForeignKey("product_category_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("product_category");
+                });
+
+            modelBuilder.Entity("webapi.Models.UserAddresses", b =>
+                {
+                    b.HasOne("webapi.Models.Users", "user")
+                        .WithMany()
+                        .HasForeignKey("user_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
                 });
 #pragma warning restore 612, 618
         }

@@ -19,6 +19,8 @@
     --white: hsl(0, 0%, 100%);
     --black: hsl(0, 0%, 0%);
     --onyx: hsl(220, 2%, 24%);
+    --avande-orange: #FF5800;
+    --avanade-dark-orange: #DC4600;
   
     /**
      * typography
@@ -27,6 +29,7 @@
     --ff-bangers: 'Bangers', cursive;
     --ff-carter_one: 'Carter One', cursive;
     --ff-nunito_sans: 'Nunito Sans', sans-serif;
+    --ff-montserrat : 'Montserrat', sans-serif;
   
     --fs-1: 6.5rem;
     --fs-2: 3.2rem;
@@ -122,7 +125,7 @@ body {
   address { font-style: normal; }
   
   html {
-    font-family: var(--ff-nunito_sans);
+    font-family: var(--ff-montserrat);
     font-size: 10px;
     scroll-behavior: smooth;
   }
@@ -171,9 +174,9 @@ body {
   
   .h1 {
     color: var(--white);
-    font-family: var(--ff-bangers);
+    font-family: var(--ff-montserrat);
     font-size: var(--fs-1);
-    font-weight: var(--fw-400);
+    font-weight: var(--fw-600);
     letter-spacing: 1px;
   }
   
@@ -185,13 +188,25 @@ body {
   .h3 { font-size: var(--fs-3); }
   
   .btn {
-    background-color: var(--black);
-    color: var(--white);
+    background-color: var(--avande-orange);
     max-width: max-content;
     padding: 8px 25px;
     font-weight: var(--fw-700);
-    border-radius: 50px;
+    border-radius: var(--radius-4);
     transition: var(--transition-1);
+    border-color: white;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .btn:is(:hover, :focus){
+    background-color: var(--avanade-dark-orange);
+    max-width: max-content;
+    padding: 8px 25px;
+    font-weight: var(--fw-700);
+    border-radius: var(--radius-4);
+    transition: var(--transition-1);
+    border-color: white;
+    font-family: 'Montserrat', sans-serif;
   }
   
   .section-title {
@@ -297,8 +312,9 @@ body {
   .nav-toggle-btn.active .close-icon { display: block; }
   
   .logo {
-    font-family: var(--ff-carter_one);
+    font-family: 'Montserrat', sans-serif;
     font-size: 3rem;
+    color: var(--avande-orange);
   }
   
   .header-actions {
@@ -320,9 +336,9 @@ body {
     background-color: var(--portland-orange);
     color: var(--white);
     font-size: var(--fs-8);
-    min-width: 18px;
-    height: 18px;
-    line-height: 18px;
+    min-width: 15px;
+    height: 15px;
+    line-height: 15px;
     border-radius: 50px;
   }
   
@@ -352,7 +368,7 @@ body {
   .navbar-link {
     color: var(--eerie-black);
     font-size: var(--fs-6);
-    padding: 10px 15px;
+    padding: 10px 5px;
   }
   
   .navbar-action-btn {
@@ -579,7 +595,7 @@ body {
   \*-----------------------------------*/
   
   .footer {
-    background-color: var(--raisin-black);
+    background-color: var(--avande-orange);
     color: var(--battleship-gray);
     background-repeat: no-repeat;
     background-size: 100%;
@@ -966,7 +982,7 @@ body {
     .navbar-action-btn { display: none; }
   
     .header {
-      --color: var(--black);
+      --color: var(--avande-orange);
       background: none;
     }
   
@@ -976,7 +992,7 @@ body {
     }
   
     .header .logo,
-    .header .action-btn { color: var(--color); }
+    .header .action-btn { color: var(--avande-orange); }
   
     .header .action-btn.user { display: block; }
   
