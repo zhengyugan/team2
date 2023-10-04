@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { ConvertToSpacesPipe } from '../../shared/convert-to-spaces.pipe';
-import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
-import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductListComponent } from './product-list.component';
 import { ProductDetailsComponent } from './product-details.component';
+import { RouterModule } from '@angular/router';
+import { appRoutes } from 'src/routes';
 import { ProductDetailGuard } from './product-detail.guard';
-
-
 
 @NgModule({
   declarations: [
@@ -18,8 +16,6 @@ import { ProductDetailGuard } from './product-detail.guard';
   ],
   imports: [
     RouterModule.forRoot([
-      { path: 'products', component: ProductListComponent },
-      { path: '', redirectTo: 'products', pathMatch: 'full' },
       {
         path: 'products/:id',
         canActivate: [ProductDetailGuard],
@@ -27,7 +23,6 @@ import { ProductDetailGuard } from './product-detail.guard';
       }
     ]),
     SharedModule,
-    IonicModule,
     FormsModule,
     ReactiveFormsModule
   ]

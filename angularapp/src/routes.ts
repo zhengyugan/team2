@@ -3,9 +3,8 @@ import { Routes } from '@angular/router';
 import { SectionSalesComponent } from './app/report/sections/section-sales/section-sales.component';
 import { SectionOrdersComponent } from './app/report/sections/section-orders/section-orders.component';
 
-import { ProductListComponent } from './app/user/product/product-list.component';
-import { ProductDetailGuard } from './app/user/product/product-detail.guard';
-import { ProductDetailComponent } from './app/user/product/product-detail.component';
+import { ProductListComponent } from './app/users/product/product-list.component';
+import { ProductDetailsComponent } from './app/users/product/product-details.component';
 
 export const appRoutes: Routes = [
   { path: 'dashboard', component: SectionSalesComponent },
@@ -15,7 +14,7 @@ export const appRoutes: Routes = [
   { path: '**', redirectTo: 'products', pathMatch: 'full' },
   {
     path: 'products/:id',
-    canActivate: [ProductDetailGuard],
-    component: ProductDetailComponent
+    canActivate: [ProductDetailsComponent],
+    component: ProductDetailsComponent
   }
 ]
