@@ -2,9 +2,12 @@
     display: flex;
     max-width: 90%;
     align-items: center;
-
 }
 
 .btn{
     margin: 10px;
+}
+
+.card-img-top{
+    padding: 20px;
 }

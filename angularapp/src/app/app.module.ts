@@ -5,10 +5,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { WelcomeComponent } from './home/welcome.component';
-import { ProductModule } from './products/product.module';
+import { ProductModule } from './users/product/product.module';
 import { HeaderComponent } from './header/header.component';
-import { IonicModule } from '@ionic/angular';
 import { FooterComponent } from './footer/footer.component';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [
