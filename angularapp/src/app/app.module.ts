@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent, NgbdModalContent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { NgChartsModule } from 'ng2-charts';
-import { WelcomeComponent } from './home/welcome.component';
 import { ProductModule } from './user/product/product.module';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -19,11 +18,12 @@ import { appRoutes } from '../routes';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WelcomeComponent,
     HeaderComponent,
     FooterComponent,
     SectionSalesComponent,
@@ -32,7 +32,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LineChartComponent,
     PieChartComponent,
     PaginationComponent,
-    NgbdModalContent
+    NgbdModalContent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
