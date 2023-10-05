@@ -1,0 +1,9 @@
+<div class="chart">
+  <canvas baseChart style="height:100%;width:100%"
+          *ngIf="barChartDataset[0].data && barChartDataset[0].data.length > 0"
+          [datasets]="barChartDataset"
+          [options]="barChartOptions"
+          [labels]="barChartLabels"
+          [type]="'bar'">
+  </canvas>
+</div>

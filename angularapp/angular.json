@@ -26,9 +26,9 @@
               "src/api"
             ],
             "styles": [
-              "src/styles.css"
-            ],
-            "scripts": []
+              "src/styles.css",
+              "src/assets/css/style.css"
+            ]
           },
           "configurations": {
             "production": {
@@ -94,13 +94,42 @@
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*.svg",
+                "input": "node_modules/ionicons/dist/ionicons/svg",
+                "output": "./svg"
+              }
             ],
             "styles": [
               "src/styles.css"
             ],
             "scripts": [],
             "karmaConfig": "karma.conf.js"
+          }
+        },
+        "ionic-cordova-serve": {
+          "builder": "@ionic/angular-toolkit:cordova-serve",
+          "options": {
+            "cordovaBuildTarget": "angularapp:ionic-cordova-build",
+            "devServerTarget": "angularapp:serve"
+          },
+          "configurations": {
+            "production": {
+              "cordovaBuildTarget": "angularapp:ionic-cordova-build:production",
+              "devServerTarget": "angularapp:serve:production"
+            }
+          }
+        },
+        "ionic-cordova-build": {
+          "builder": "@ionic/angular-toolkit:cordova-build",
+          "options": {
+            "browserTarget": "angularapp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "angularapp:build:production"
+            }
           }
         }
       }

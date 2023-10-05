@@ -1,0 +1,9 @@
+<div class="chart">
+  <canvas baseChart
+          *ngIf="lineChartDataset"
+          [datasets]="lineChartDataset"
+          [options]="lineChartOptions"
+          [labels]="lineChartLabels"
+          [type]="'line'">
+  </canvas>
+</div>

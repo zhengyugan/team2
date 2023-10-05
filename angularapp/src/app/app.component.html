@@ -1,6 +1,13 @@
-<div style="text-align:center">
-  <h1>
-    TaDa! Welcome to {{title}}!!
-  </h1>
-  ... Starter Files ...
+
+<div class="header">
+  <pm-header></pm-header>
+</div>
+
+<div class="content">
+  <button class="btn btn-primary" (click)="open()">Launch demo modal</button>
+    <router-outlet></router-outlet>
+</div>
+
+<div class="footer">
+  <pm-footer></pm-footer>
 </div>
