@@ -1,0 +1,38 @@
+<header>
+  <div class="container">
+    <a routerLink="/products" class="logo fw-bold fs-1">Team2Shop</a>
+    <nav class="navbar" data-navbar>
+      <ul class="navbar-list mb-0">
+        <li class="navbar-item">
+          <a routerLink="/products" class="navbar-link fw-semibold" data-nav-link>Products</a>
+        </li>
+        <li class="navbar-item">
+          <a routerLink="/products" class="navbar-link fw-semibold" data-nav-link>Reports</a>
+        </li>
+      </ul>
+
+    </nav>
+    <div class="header-actions">
+      <div *ngIf="isLoggedIn; else loggedOut">
+        <button class="action-btn" >
+          <span class="fs-3"><fa-icon icon="shopping-cart" style="color:#DC4600"></fa-icon></span>
+          <span class="btn-badge">0</span>
+        </button>
+      </div>
+      <ng-template #loggedOut>
+        <button class="action-btn" >
+          <span class="fs-4">
+            <a routerLink="/login">
+              <fa-icon icon="user"></fa-icon>&nbsp;&nbsp;Log In
+            </a>
+          </span>
+        </button>
+      </ng-template>
+    </div>
+  </div>
+</header>
+
+  
+
+  
+
