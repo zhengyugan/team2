@@ -1,3 +1,19 @@
 thead {
     color: #337AB7;
 }
+.card-img-top{
+    padding: 20px;
+    height: 245.5px;
+}
+.card-body{
+    background-color: #F5F5F5;
+}
+
+.bg-avanade-dark{
+    background-color: #DC4600;
+  }
+  
+  .bg-avanade-light{
+    background-color: #FF5800;
+  }
+  

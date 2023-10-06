@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { ProductDetailGuard } from 'src/app/user/product/product-detail.guard';
 
-import { ProductDetailGuard } from './product-detail.guard';
 
 describe('ProductDetailGuard', () => {
   let guard: ProductDetailGuard;

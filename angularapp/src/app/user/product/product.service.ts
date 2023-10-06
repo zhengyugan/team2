@@ -9,14 +9,25 @@ import { IProduct } from "./product";
 })
 export class ProductService {
   private productUrl = 'api/products/products.json';
-
+  private url='https://localhost:7056/';
+  title = 'Product';
+  
   constructor(private http: HttpClient) { }
+  products:any =[];
 
   getProducts(): Observable<IProduct[]> {
     return this.http.get<IProduct[]>(this.productUrl).pipe(
       tap(data => console.log('All', JSON.stringify(data))),
       catchError(this.handleError)
     );
+  }
+
+  public getAllProducts(){
+
+    return this.http.get(this.url+'api/Product/GetAllProducts').subscribe(data=>{
+      this.products = JSON.stringify(data);
+      console.log(this.products);
+    })
   }
 
   private handleError(err: HttpErrorResponse) {
