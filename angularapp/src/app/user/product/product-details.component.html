@@ -10,7 +10,7 @@
                     <p class="lead">Description</p>
                     <p class="lead">Category : </p>
                
-                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <form [formGroup]="form" >
                 <!-- Add colour selection"-->
                 <div class="small mb-1">Colour</div>
                 <select [formGroup]="form" formControlName="colour" class="form-control">
@@ -40,11 +40,11 @@
                         <button type="button" class="btn btn-secondary" (click)="updateQuantity('plus')"><fa-icon icon="plus"></fa-icon></button>
                     </div>
 
-                    <button class="btn btn-outline-dark flex-shrink-0" type="submit" id="addItem" >
+                    <button class="btn btn-outline-dark flex-shrink-0" type="submit" id="addItem" (click)="onSubmit('addItem')">
                         <i class="bi-cart-fill me-1"></i>
                         Add to cart
                     </button>
-                    <button class="btn btn-outline-dark flex-shrink-0" type="submit" id="buyNow">
+                    <button class="btn btn-outline-dark flex-shrink-0" type="submit" id="buyNow" (click)="onSubmit('buyNow')">
                         + Buy Now
                     </button>
                 </div>

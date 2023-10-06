@@ -16,8 +16,20 @@
           <input type="text" [(ngModel)]="listFilter" />
         </div>
       </div> -->
+      
   <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
+      <!-- Search Bar -->
+      <div class="btn-group" role="group" aria-label="Button group">
+        <select class="form-select" [(ngModel)]="selectedOption" (ngModelChange)="onSelectionChange()">
+          <option value="">All</option>
+          <option value="collar">Collar</option>
+          <option value="harness">Harness</option>
+          <option value="leads">Leads</option>
+        </select>        
+      <input  class="input-group-text" type="text" [(ngModel)]="listFilter"/>
+    </div>
+
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <div class="col mb-5" *ngFor="let product of filteredProducts">
                 <div class="card h-100">
@@ -39,6 +51,14 @@
             </div>
            
         </div>
+          <app-pagination
+            (goPage)="goToPage($event)"
+            (goPrev)="goToPrevious()"
+            (goNext)="goToNext()"
+            [page]="page"
+            [perPage]="limit"
+            [count]="total">
+        </app-pagination>
     </div>
   </section>
   

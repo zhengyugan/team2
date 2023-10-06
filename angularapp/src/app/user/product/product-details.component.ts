@@ -1,8 +1,7 @@
-import { Component, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IProduct } from './product';
-import { initial } from 'lodash';
 
 @Component({
   selector: 'pm-product-details',
@@ -47,32 +46,37 @@ export class ProductDetailsComponent {
  
 
   updateQuantity(operation :string): void {
-     var initialQuantity:number = Number(this.form.controls['quantity'].value); 
-    if(operation == "plus" ){
-       initialQuantity++
+     var initialQuantity:number = Number(this.form.controls['quantity'].value);
+
+    if(operation == "minus" && initialQuantity>0){
+       initialQuantity--;
        this.form.controls['quantity'].setValue(initialQuantity.toString());
     }else{
-      initialQuantity--
+      initialQuantity++;
       this.form.controls['quantity'].setValue(initialQuantity.toString());
     }
   }
 
-  onSubmit(){
-    if(this.form.valid){
+  onSubmit(buttonClick: string){
+    this.validation();
+    if(!this.hasError){
+      // insert the data
       console.log(this.form.value);
-    }else{
-      this.validation();
     }
-    // this.router.navigate(['/products']);
-   
-    // use async await to insert item to cart
-    // if buy now is click, navigate to cart page directly
-    // 
+    
+    if(buttonClick == "buyNow")
+    {
+      this.router.navigate(['/cart']);
+    }
+    
   }
+
 
   validation(){
     this.hasError=false;
     this.errorMessage="";
+    // call backend api to insert the table
+    // do all the handling and remove the message
     if(this.form.controls['colour'].invalid){
       this.errorMessage="Please select colour variation";
       this.hasError=true;
@@ -83,12 +87,4 @@ export class ProductDetailsComponent {
     }
   }
 
-  getElementId(event:any){
-  
-    // Get the source element
-    let element = event.target || event.srcElement || event.currentTarget;
-    // Get the id of the source element
-    let elementId = element.id;
-    alert("The button's id is: " + elementId);  // Prompt element's id
-  }
 }

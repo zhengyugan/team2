@@ -10,24 +10,25 @@ import { ProductService } from './product.service';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit, OnDestroy {
-  pageTitle: string = "Product List";
-  imageWidth: number = 50;
-  imageMargin: number = 2;
-  showImage: boolean = false;
   errorMessage: string = "";
   sub!: Subscription;
-
+  filteredProducts: IProduct[] = [];
+  products: IProduct[] = [];
+  selectedOption: string ="";
   private _listFilter: string = "";
+  total = 0;
+  page = 1;
+  limit = 10;
+  loading = false;
+
   get listFilter(): string {
+    // set the size
     return this._listFilter;
   }
   set listFilter(value: string) {
     this._listFilter = value;
     this.filteredProducts = this.performFilter(value);
   }
-
-  filteredProducts: IProduct[] = [];
-  products: IProduct[] = [];
 
   constructor(private productService: ProductService) { }
 
@@ -37,25 +38,41 @@ export class ProductListComponent implements OnInit, OnDestroy {
       product.productName.toLocaleLowerCase().includes(filterBy));
   }
 
-  toggleImage(): void {
-    this.showImage = !this.showImage;
+  ngOnInit(): void {
+   this.getProducts();
   }
 
-  ngOnInit(): void {
+  getProducts():void{
     this.sub = this.productService.getProducts().subscribe({
       next: products => {
         this.products = products;
         this.filteredProducts = this.products;
+        this.total = this.products.length;
       },
-      error: err => this.errorMessage = err
     });
+  }
+
+  goToPrevious(): void {
+    this.page--;
+    this.getProducts();
+  }
+
+  goToNext(): void {
+    this.page++;
+    this.getProducts();
+  }
+
+  goToPage(n: number): void {
+    this.page = n;
+    this.getProducts();
+  }
+
+  onSelectionChange(){
+    this.filteredProducts = this.performFilter(this.selectedOption);
   }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
 
-  onRatingClicked(message: string): void {
-    this.pageTitle = "Product List: " + message;
-  }
 }
