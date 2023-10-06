@@ -1,0 +1,55 @@
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center" *ngIf="product !==undefined">
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" style="width: 400px; height: 400px;" src={{product.imageUrl}} alt="..." /></div>
+            <div class="col-md-6">
+                <h1 class="display-5 fw-bolder">{{product.productName | slice:0:100}}</h1>
+                <div class="fs-5 mb-5">
+                    <span>{{product.price | currency:"MYR ":"symbol":"1.2-2"}}</span>
+                </div>
+                    <p class="lead">Description</p>
+                    <p class="lead">Category : </p>
+               
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <!-- Add colour selection"-->
+                <div class="small mb-1">Colour</div>
+                <select [formGroup]="form" formControlName="colour" class="form-control">
+                    <option *ngFor="let colour of colourList" name="colour" value="{{colour}}">{{colour | titlecase}}</option>
+                </select>
+               
+                <!-- Add size selection -->
+                <div>
+                    <div class="small mb-1">Size</div>
+                  
+                    <select [formGroup]="form" formControlName="size" class="form-control">
+
+                        <option *ngFor="let size of sizeList" name="size" value="{{size}}">{{size | titlecase}}</option>
+                    </select>
+                </div>
+                <div *ngIf="hasError">
+                    <div class="alert alert-danger" role="alert">
+                    {{errorMessage}}
+                  </div>
+                </div>
+
+                <div class="d-flex">
+                    
+                    <div class="btn-group" role="group" aria-label="Button group">
+                        <button type="button" class="btn btn-secondary" style="margin: 0px;" (click)="updateQuantity('minus')"><fa-icon icon="minus"></fa-icon></button>
+                        <input class="form-control text-center" id="inputQuantity" type="num" formControlName="quantity" [formGroup]="form" style="color: black;"/>
+                        <button type="button" class="btn btn-secondary" (click)="updateQuantity('plus')"><fa-icon icon="plus"></fa-icon></button>
+                    </div>
+
+                    <button class="btn btn-outline-dark flex-shrink-0" type="submit" id="addItem" >
+                        <i class="bi-cart-fill me-1"></i>
+                        Add to cart
+                    </button>
+                    <button class="btn btn-outline-dark flex-shrink-0" type="submit" id="buyNow">
+                        + Buy Now
+                    </button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</section>

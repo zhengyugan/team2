@@ -7,6 +7,7 @@ import { ProductDetailsComponent } from './product-details.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from 'src/routes';
 import { ProductDetailGuard } from './product-detail.guard';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,11 @@ import { ProductDetailGuard } from './product-detail.guard';
     ]),
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule
+  ],
+  providers:[
+    FontAwesomeModule
   ]
 })
 export class ProductModule {

@@ -8,3 +8,12 @@ thead {
 .card-body{
     background-color: #F5F5F5;
 }
+
+.bg-avanade-dark{
+    background-color: #DC4600;
+  }
+  
+  .bg-avanade-light{
+    background-color: #FF5800;
+  }
+  

@@ -16,9 +16,10 @@ import { LineChartComponent } from './report/charts/line-chart/line-chart.compon
 import { PaginationComponent } from './report/pagination/pagination.component';
 import { appRoutes } from '../routes';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faUser,faPlus,faMinus } from '@fortawesome/free-solid-svg-icons';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ProductModule } from './users/product/product.module';
+import { ProductModule } from './user/product/product.module';
+
 
 @NgModule({
   declarations: [
@@ -52,7 +53,9 @@ export class AppModule {
   constructor(library: FaIconLibrary) {
     library.addIcons(
       faCartShopping,
-      faUser
+      faUser,
+      faPlus,
+      faMinus
       );
   }
  }

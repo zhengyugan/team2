@@ -1,5 +1,5 @@
 <!-- Header-->
-<header class="bg-dark py-5">
+<header class="bg-avanade-light py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
             <h1 class="display-4 fw-bolder">SHOP HERE</h1>
@@ -32,7 +32,7 @@
                             <!-- Product name-->
                             <h5 style="cursor: pointer;" [routerLink]="['/products', product.productId]" class="fw-bolder">{{product.productName}}</h5>
                             <!-- Product price-->
-                            {{product.price | currency:"MYR":"symbol":"1.2-2"}}
+                            {{product.price | currency:"MYR ":"symbol":"1.2-2"}}
                         </div>
                     </div>
                 </div>
