@@ -1,7 +1,7 @@
 import { Component} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IProduct } from './product';
+import { IProduct } from '../../shared/product';
 
 @Component({
   selector: 'pm-product-details',
