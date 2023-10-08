@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import ValidateForm from '../helpers/validateform';
 
 @Component({
   selector: 'pm-login',
@@ -15,7 +16,7 @@ export class LoginComponent {
 
   ngOnInit(): void{
     this.loginForm = this.fb.group({
-      username:['',Validators.required],
+      email:['',Validators.required],
       password:['',Validators.required]
     })
   }
@@ -25,4 +26,15 @@ export class LoginComponent {
     this.isText ? this.eyeIcon = "fa-solid fa-eye" : this.eyeIcon = "fa-eye-slash";
     this.isText ? this.type = "text" : this.type = "password"
   }
+
+  onSubmit(){
+    if(this.loginForm.valid){
+      console.log(this.loginForm.value)
+    }else{
+      ValidateForm.validateInput(this.loginForm);
+      alert("Your form is invalid")
+    }
+  }
+
+  
 }
