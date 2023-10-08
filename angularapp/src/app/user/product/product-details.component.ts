@@ -16,6 +16,7 @@ export class ProductDetailsComponent {
   sizeList:string[] = [];
   hasError:boolean = false;
   errorMessage:string ="";
+  isButtonDisabled = false;
 
   form = new FormGroup({  
     colour: new FormControl('', Validators.required),
@@ -51,8 +52,12 @@ export class ProductDetailsComponent {
     if(operation == "minus" && initialQuantity>0){
        initialQuantity--;
        this.form.controls['quantity'].setValue(initialQuantity.toString());
+       if(initialQuantity == 0){
+        this.isButtonDisabled = true;
+       }
     }else{
       initialQuantity++;
+      this.isButtonDisabled = false;
       this.form.controls['quantity'].setValue(initialQuantity.toString());
     }
   }

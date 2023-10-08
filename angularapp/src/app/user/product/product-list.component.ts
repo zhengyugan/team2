@@ -18,7 +18,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   private _listFilter: string = "";
   total = 0;
   page = 1;
-  limit = 10;
+  limit = 8;
   loading = false;
 
   get listFilter(): string {

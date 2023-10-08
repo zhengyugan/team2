@@ -6,8 +6,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProductListComponent } from './product-list.component';
 import { ProductDetailsComponent } from './product-details.component';
 import { ProductDetailGuard } from './product-detail.guard';
-import { AppModule } from 'src/app/app.module';
-import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/shared/shared.module';
 
