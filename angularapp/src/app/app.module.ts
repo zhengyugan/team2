@@ -44,7 +44,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProductModule,
     NgChartsModule,
     FontAwesomeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     SalesDataService,

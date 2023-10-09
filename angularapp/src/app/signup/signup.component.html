@@ -10,6 +10,18 @@
                       <div class="panel-body p-3">
                               <form [formGroup]="signUpForm" class="px-4 py-3">
                                 <div class="mb-3">
+                                  <span class="fa-solid fa-user p-2"></span>
+                                  <label class="form-label">First Name</label>
+                                  <input [class.error]="signUpForm.controls['firstname'].dirty && signUpForm.hasError('required','firstname')" formControlName="firstname" type="text" class="form-control" id="exampleDropdownFormEmail1" placeholder="John">
+                                  <small *ngIf="signUpForm.controls['firstname'].dirty && signUpForm.hasError('required','firstname')" class="text-danger">First Name is required</small>
+                                </div>
+                                <div class="mb-3">
+                                  <span class="fa-solid fa-user p-2"></span>
+                                  <label class="form-label">Last Name</label>
+                                  <input [class.error]="signUpForm.controls['lastname'].dirty && signUpForm.hasError('required','lastname')" formControlName="lastname" type="text" class="form-control" id="exampleDropdownFormEmail1" placeholder="Doe">
+                                  <small *ngIf="signUpForm.controls['lastname'].dirty && signUpForm.hasError('required','lastname')" class="text-danger">Last Name is required</small>
+                                </div>
+                                <div class="mb-3">
                                   <span class="fa fa-solid fa-envelope p-2"></span>
                                   <label for="exampleDropdownFormEmail1" class="form-label">Email address</label>
                                   <input [class.error]="signUpForm.controls['email'].dirty && signUpForm.hasError('required','email')" formControlName="email" type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
@@ -43,7 +55,7 @@
                                 </div>
                                 <div class="d-flex justify-content-center">
                                   <button (click)="onSignUp()" type="submit" class="btn btn-primary me-2">Register</button>
-                                  <button type="submit" class="btn btn-dark">Cancel</button>
+                                  <button (click)="cancel()" type="submit" class="btn btn-dark">Cancel</button>
                                 </div>
                               </form>
                               <div class="dropdown-divider"></div>
