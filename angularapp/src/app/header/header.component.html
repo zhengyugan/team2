@@ -7,13 +7,13 @@
           <a routerLink="/products" class="navbar-link fw-semibold" data-nav-link>Products</a>
         </li>
         <li class="navbar-item">
-          <a routerLink="/products" class="navbar-link fw-semibold" data-nav-link>Reports</a>
+          <a routerLink="/dashboard" class="navbar-link fw-semibold" data-nav-link>Dashboard</a>
         </li>
         <li class="navbar-item">
           <a routerLink="/cart" class="navbar-link fw-semibold" data-nav-link>Cart</a>
         </li>
       </ul>
-      <a href="#" class="navbar-action-btn">Log In</a>
+
     </nav>
     <div class="header-actions">
       <div *ngIf="isLoggedIn; else loggedOut">
@@ -24,7 +24,11 @@
       </div>
       <ng-template #loggedOut>
         <button class="action-btn" >
-          <span class="fs-4"><fa-icon icon="user"></fa-icon>&nbsp;&nbsp;Log In</span>
+          <span class="fs-4">
+            <a routerLink="/login">
+              <fa-icon icon="user"></fa-icon>&nbsp;&nbsp;Log In
+            </a>
+          </span>
         </button>
       </ng-template>
     </div>

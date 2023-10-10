@@ -120,7 +120,9 @@ body {
     cursor: pointer;
   }
   
-  ion-icon { pointer-events: none; }
+  .form-control{
+    line-height: 3em !important; 
+  }
   
   address { font-style: normal; }
   

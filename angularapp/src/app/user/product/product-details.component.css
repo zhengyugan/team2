@@ -1,0 +1,28 @@
+.display{
+    display: flex;
+    max-width: 90%;
+    align-items: center;
+}
+
+.btn{
+    border: 1px solid black;
+    background-color: white;
+    color: black;
+    font-size: 14px;
+    cursor: pointer;
+    height: fit-content;
+    margin-left: 1em;
+}
+
+.btn-secondary{
+    border: 1px solid lightgrey;
+    color: grey;
+}
+
+.card-img-top{
+    padding: 20px;
+}
+
+.form-control {
+    margin-bottom: 1em;
+  }

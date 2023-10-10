@@ -1,19 +1,39 @@
 import { NgModule } from '@angular/core';
-import { ProductListComponent } from './product-list.component';
-import { ProductDetailComponent } from './product-detail.component';
-import { RouterModule } from '@angular/router';
-import { ProductDetailGuard } from './product-detail.guard';
-import { SharedModule } from '../../shared/shared.module';
 import { ConvertToSpacesPipe } from '../../shared/convert-to-spaces.pipe';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ProductListComponent } from './product-list.component';
+import { ProductDetailsComponent } from './product-details.component';
+import { ProductDetailGuard } from './product-detail.guard';
+import { CommonModule } from '@angular/common';
+import { SharedModule } from 'src/app/shared/shared.module';
+
+
 
 @NgModule({
   declarations: [
     ProductListComponent,
-    ProductDetailComponent,
-    ConvertToSpacesPipe
+    ConvertToSpacesPipe,
+    ProductDetailsComponent
   ],
   imports: [
+    RouterModule.forRoot([
+      {
+        path: 'products/:id',
+        canActivate: [ProductDetailGuard],
+        component: ProductDetailsComponent
+      }
+    ]),
     SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    CommonModule
+  ],
+  providers: [
+    FontAwesomeModule
   ]
 })
-export class ProductModule { }
+export class ProductModule {
+}

@@ -1,21 +1,25 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { IProduct } from './product';
+import { IProduct, Products } from '../../shared/product';
 import { ProductService } from './product.service';
 
 @Component({
+  selector: 'pm-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit, OnDestroy {
-  pageTitle: string = "Product List";
-  imageWidth: number = 50;
-  imageMargin: number = 2;
-  showImage: boolean = false;
   errorMessage: string = "";
   sub!: Subscription;
-
+  filteredProducts: Products[] = [];
+  products: Products[] = [];
+  selectedOption: string ="";
   private _listFilter: string = "";
+  total = 0;
+  page = 1;
+  limit = 8;
+  loading = false;
+
   get listFilter(): string {
     return this._listFilter;
   }
@@ -24,36 +28,49 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.filteredProducts = this.performFilter(value);
   }
 
-  filteredProducts: IProduct[] = [];
-  products: IProduct[] = [];
-
   constructor(private productService: ProductService) { }
 
-  performFilter(filterBy: string): IProduct[] {
+  performFilter(filterBy: string): Products[] {
     filterBy = filterBy.toLocaleLowerCase();
-    return this.products.filter((product: IProduct) =>
-      product.productName.toLocaleLowerCase().includes(filterBy));
-  }
-
-  toggleImage(): void {
-    this.showImage = !this.showImage;
+    return this.products.filter((product: Products) =>
+      product.name.toLocaleLowerCase().includes(filterBy));
   }
 
   ngOnInit(): void {
-    this.sub = this.productService.getProducts().subscribe({
+   this.getAllProducts();
+  }
+  
+  getAllProducts(){
+    this.sub = this.productService.getAllProducts().subscribe({
       next: products => {
-        this.products = products;
+        this.products = products['Data'];
         this.filteredProducts = this.products;
+        this.total = this.products.length;
       },
-      error: err => this.errorMessage = err
     });
+  }
+
+  goToPrevious(): void {
+    this.page--;
+    this.getAllProducts();
+  }
+
+  goToNext(): void {
+    this.page++;
+    this.getAllProducts();
+  }
+
+  goToPage(n: number): void {
+    this.page = n;
+    this.getAllProducts();
+  }
+
+  onSelectionChange(){
+    this.filteredProducts = this.performFilter(this.selectedOption);
   }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
 
-  onRatingClicked(message: string): void {
-    this.pageTitle = "Product List: " + message;
-  }
 }
