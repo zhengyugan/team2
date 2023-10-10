@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 webapi/appsettings.json
 webapi/webapi.csproj
+webapi/appsettings.json
