@@ -153,7 +153,8 @@ namespace webapi.Controllers
 								 prod_variant.size,
 								 prod_variant.color,
 								 prod_variant.id,
-								 prod_variant.quantity
+								 prod_variant.quantity,
+								 prod_variant.length
 							 }).ToList();
 			if (variation.Count > 0)
 			{

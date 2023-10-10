@@ -21,9 +21,9 @@
                 <div>
                     <div class="small mb-1">Variant</div>
                   
-                    <select [formGroup]="form" formControlName="size" class="form-control">
+                    <select [formGroup]="form" formControlName="type" class="form-control">
 
-                        <option *ngFor="let size of sizeList" name="size" value="{{size}}">{{size | titlecase}}</option>
+                        <option *ngFor="let type of typeList" name="size" value="{{type}}">{{type | titlecase}}</option>
                     </select>
                 </div>
                 <div *ngIf="hasError">
