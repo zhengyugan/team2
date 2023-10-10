@@ -116,11 +116,13 @@ namespace webapi.Controllers
 			var prodVariantList = _context.product_variants.ToList();
 			var userList = _context.users.ToList();
 
-			// new Carts { 
-			// 	user = userList.First(c=>c.id == cartInfo.user_id),
-			// 	product_variant = prodVariantList.First(c => c.id == cartInfo.product_variant_id),
-			// }
-			//_context.carts.Add(cart);
+			var cart = new Carts
+			{
+				user = userList.First(c => c.id == cartInfo.user_id),
+				product_variant = prodVariantList.First(c => c.id == cartInfo.product_variant_id),
+				quantity = cartInfo.quantity
+			};
+			_context.carts.Add(cart);
 			await _context.SaveChangesAsync();
 
 			//var result = _context.product_variants.First(prod => prod.id == cart.id);
