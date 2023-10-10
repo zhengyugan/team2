@@ -1,3 +1,5 @@
+using System.Collections.Immutable;
+using System.Dynamic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Any;
 using webapi.Migrations;
@@ -58,17 +60,17 @@ namespace webapi.Controllers
 		[HttpGet("{id}", Name = "getProduct")]
         public IActionResult getProduct(int id)
         {
-            var product = _context.products.Where(product => product.id == id).ToList();
+			var product = _context.products.Where(product => product.id == id).ToList();
 
-            if (product.Count > 0)
-            {
-                return Ok(new ApiResponseWrapper("", product.ToArray()));
-            }
-            else
-            {
-                return NotFound(new ApiResponseWrapper("Product not found!", product.ToArray()));
-            }
-        }
+			if (product.Count > 0)
+			{
+				return Ok(new ApiResponseWrapper("", product.ToArray()));
+			}
+			else
+			{
+				return NotFound(new ApiResponseWrapper("Product not found!", product.ToArray()));
+			}
+		}
 
         [HttpGet("GetProductById/{id}")]
 		public IActionResult getProductById(int id)
@@ -123,13 +125,20 @@ namespace webapi.Controllers
 				quantity = cartInfo.quantity
 			};
 			_context.carts.Add(cart);
-			await _context.SaveChangesAsync();
+		
 
-			//var result = _context.product_variants.First(prod => prod.id == cart.id);
+			int initialQuantity = prodVariantList.Single(c => c.id == cartInfo.product_variant_id).quantity;
+
+			int finalQuantity = initialQuantity - cartInfo.quantity;
+
+			var updateQuery = _context.product_variants.Find(cartInfo.product_variant_id);
+			updateQuery.quantity = finalQuantity;
 
 			List<Carts> objList = new List<Carts>();
 
-            return Ok(new ApiResponseWrapper("", objList.ToArray()));
+			await _context.SaveChangesAsync();
+
+			return Ok(new ApiResponseWrapper("", objList.ToArray()));
 
 		}
 

@@ -9,7 +9,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 
-import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartShopping, faUser, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 import { AppComponent, NgbdModalContent } from './app.component';
@@ -31,6 +30,7 @@ import { DateYearPickerComponent } from './admin/report/date-pickers/date-year-p
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { SharedModule } from './shared/shared.module';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
