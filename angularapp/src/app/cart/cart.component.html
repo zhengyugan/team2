@@ -19,23 +19,51 @@
         </thead>
         <tbody>
           <tr *ngFor="let product of cart">
-            1
             <td>
               <img [src]="product.imageUrl" alt="Product Image" class="product-image" [style.width.px]="imageWidth" [style.margin.px]="imageMargin" />
             </td>
             <td>{{ product.productName }}</td>
-            <td>{{ product.productColour }}</td>
-            <td>{{ product.productSize }}</td>
+            <td>
+              <div mdbDropdown class="dropdown">
+                <button class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        aria-expanded="false"
+                        mdbDropdownToggle>
+                  {{ product.productColour }}
+                </button>
+                {{product.dropdownColour}}
+                <!--<ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngFor="let dropdown of product.dropdownColour">
+                  <li><a class="dropdown-item" href="#">{{ dropdown.colour }}</a></li>
+                </ul>-->
+              </div>
+            </td>
+            <td>
+              <div mdbDropdown class="dropdown">
+                <button class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        aria-expanded="false"
+                        mdbDropdownToggle>
+                  {{ product.productSize }}
+                </button>
+                <!--<ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngFor="let dropdown of product.dropdownSize">
+                  <li><a class="dropdown-item" href="#">{{ dropdown.size }}</a></li>
+                </ul>-->
+              </div>
+            </td>
             <td>{{ product.price }}</td>
             <td>{{ product.quantity }}</td>
-            <!--<td><span class="bi bi-trash"></span></td>-->
             <td><button mat-button color="primary" type="button" class="bi bi-trash orange-color"></button></td>
-            <!--<span class="bi bi-trash orange-color"></span>
-            class="btn btn-primary"-->
           </tr>
-          <td><button class="btn btn-primary">Checkout</button></td>
+          <!--<td><button class="btn btn-primary">Checkout</button></td>-->
         </tbody>
       </table>
+      <div class="content">
+        Subtotal: RM{{ subtotal }} <br/>
+        Total: RM{{ total }}<br/><br/>
+        <button class="btn btn-primary" (click)="open()">Checkout</button>
+      </div>
     </div>
   </div>
 </div>

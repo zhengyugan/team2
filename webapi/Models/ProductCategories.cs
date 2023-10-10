@@ -15,5 +15,10 @@ namespace webapi.Models
 		public int? modified_by { get; set; }
 		public DateTime created_at { get; set; }
 		public int created_by { get; set; }
-	}
+
+        public static implicit operator int(ProductCategories v)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

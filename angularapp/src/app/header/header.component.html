@@ -9,14 +9,17 @@
         <li class="navbar-item">
           <a routerLink="/products" class="navbar-link fw-semibold" data-nav-link>Reports</a>
         </li>
+        <li class="navbar-item">
+          <a routerLink="/cart" class="navbar-link fw-semibold" data-nav-link>Cart</a>
+        </li>
       </ul>
       <a href="#" class="navbar-action-btn">Log In</a>
     </nav>
     <div class="header-actions">
       <div *ngIf="isLoggedIn; else loggedOut">
         <button class="action-btn" >
-          <span class="fs-3"><fa-icon icon="shopping-cart" style="color:#DC4600"></fa-icon></span>
-          <span class="btn-badge">0</span>
+          <span class="fs-3"><fa-icon icon="shopping-cart" routerLink="/cart" style="color:#DC4600"></fa-icon></span>
+          <!--<span class="btn-badge">0</span>-->
         </button>
       </div>
       <ng-template #loggedOut>

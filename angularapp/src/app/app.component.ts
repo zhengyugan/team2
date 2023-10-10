@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({ 
@@ -11,6 +11,8 @@ export class AppComponent {
   open()
   {
     const modalRef = this.modalService.open(NgbdModalContent);
+    modalRef.componentInstance.customMessage = 'Test Message';
+
   }
 }
 
@@ -20,6 +22,7 @@ export class AppComponent {
   templateUrl: './modal/success-modal/modal.component.html',
 })
 export class NgbdModalContent {
+  @Input() customMessage: any;
   constructor(public activeModal: NgbActiveModal){}
 }
 

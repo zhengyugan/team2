@@ -5,7 +5,6 @@ import { AppComponent, NgbdModalContent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { NgChartsModule } from 'ng2-charts';
 import { WelcomeComponent } from './home/welcome.component';
-import { ProductModule } from './user/product/product.module';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SectionSalesComponent } from './report/sections/section-sales/section-sales.component';
@@ -19,10 +18,12 @@ import { appRoutes } from '../routes';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ProductModule } from './products/product.module';
+import { ProductModule } from './user/product/product.module';
 import { CartModule } from './cart/cart.module';
 
+
 @NgModule({
+
   declarations: [
     AppComponent,
     WelcomeComponent,
@@ -36,32 +37,29 @@ import { CartModule } from './cart/cart.module';
     PaginationComponent,
     NgbdModalContent
   ],
+
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     ProductModule,
     NgChartsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    CartModule
   ],
+
   providers: [
     SalesDataService,
     FontAwesomeModule
-    RouterModule.forRoot([
-      { path: 'welcome', component: WelcomeComponent },
-      { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-      { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
-    ]),
-    ProductModule,
-    CartModule
   ],
   bootstrap: [AppComponent, NgbdModalContent],
 })
+
 export class AppModule {
   constructor(library: FaIconLibrary) {
     library.addIcons(
       faCartShopping,
       faUser
-      );
+    );
   }
- }
+}

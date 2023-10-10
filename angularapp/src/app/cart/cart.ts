@@ -5,4 +5,6 @@ export interface ICart {
   price: number;
   quantity: number;
   imageUrl: string;
+  dropdownColour: [];
+  dropdownSize: [];
 }
