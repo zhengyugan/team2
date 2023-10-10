@@ -11,10 +11,6 @@ export class SectionSalesComponent implements OnInit {
   salesDataByState: any;
   constructor(private _salesDataService: SalesDataService) { }
   ngOnInit(): void {
-    this._salesDataService.getOrdersByState().subscribe(res => {
-      this.salesDataByState = res;
-    });
-
     this._salesDataService.getOrdersByCustomer(5).subscribe(res => {
       this.salesDataByCustomer = res;
     });

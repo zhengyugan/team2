@@ -8,7 +8,7 @@
       "schematics": {},
       "root": "",
       "sourceRoot": "src",
-      "prefix": "pm",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -22,13 +22,14 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "src/api"
+              "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css",
               "src/assets/css/style.css"
-            ]
+            ],
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -94,48 +95,20 @@
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "**/*.svg",
-                "input": "node_modules/ionicons/dist/ionicons/svg",
-                "output": "./svg"
-              }
+              "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": [],
             "karmaConfig": "karma.conf.js"
-          }
-        },
-        "ionic-cordova-serve": {
-          "builder": "@ionic/angular-toolkit:cordova-serve",
-          "options": {
-            "cordovaBuildTarget": "angularapp:ionic-cordova-build",
-            "devServerTarget": "angularapp:serve"
-          },
-          "configurations": {
-            "production": {
-              "cordovaBuildTarget": "angularapp:ionic-cordova-build:production",
-              "devServerTarget": "angularapp:serve:production"
-            }
-          }
-        },
-        "ionic-cordova-build": {
-          "builder": "@ionic/angular-toolkit:cordova-build",
-          "options": {
-            "browserTarget": "angularapp:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "angularapp:build:production"
-            }
           }
         }
       }
     }
   },
   "cli": {
-    "analytics": "2a4f20fc-fd1f-45bb-b43c-440cd094eedb"
+    "analytics": "14944c6f-b53b-496a-8e96-0e22f898fe74"
   }
 }

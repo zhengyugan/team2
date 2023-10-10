@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartDataset } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import { LINE_CHART_COLORS } from '../../../shared/chart.colors';
+import { LINE_CHART_COLORS } from '../../../../shared/chart.colors';
 
 import { SalesDataService } from '../../services/sales-data.service';
 import * as moment from 'moment';
