@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StarComponent } from './star.component';
+import { StarComponent } from './star/star.component';
 import { FormsModule } from '@angular/forms';
+import { PaginationComponent } from './pagination/pagination.component';
 
 
 
 @NgModule({
   declarations: [
-    StarComponent
+    StarComponent,
+    PaginationComponent,
   ],
   imports: [
     CommonModule
@@ -15,7 +17,8 @@ import { FormsModule } from '@angular/forms';
   exports: [
     CommonModule,
     FormsModule,
-    StarComponent
+    StarComponent,
+    PaginationComponent
   ]
 })
 export class SharedModule { }

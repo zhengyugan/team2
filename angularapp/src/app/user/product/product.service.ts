@@ -1,15 +1,16 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, catchError, tap, throwError } from "rxjs";
-
-import { IProduct } from "./product";
+import { map } from 'rxjs/operators';
+import { IProduct } from "../../shared/product";
+import { Carts } from "src/app/shared/cart";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
   private productUrl = 'api/products/products.json';
-  private url='https://localhost:7056/';
+  private url='https://localhost:7056';
   title = 'Product';
   
   constructor(private http: HttpClient) { }
@@ -23,11 +24,19 @@ export class ProductService {
   }
 
   public getAllProducts(){
+    return this.http.get(this.url + '/api/Product/GetAllProducts' ).pipe(map((res: any) => res || []));
+  }
 
-    return this.http.get(this.url+'api/Product/GetAllProducts').subscribe(data=>{
-      this.products = JSON.stringify(data);
-      console.log(this.products);
-    })
+  public getProductbyId(id:number){
+    return this.http.get(this.url + '/api/Product/GetProductById/'+ id ).pipe(map((res: any) => res || []));
+  }
+
+  public getProductVariantById(id:number){
+    return this.http.get(this.url + '/api/Product/GetProductVariation/'+ id ).pipe(map((res: any) => res || []));
+  }
+
+  public addItemToCart(data:Carts){
+    return this.http.post(this.url + '/api/Product/AddItem',data ).pipe(map((res: any) => res || []));
   }
 
   private handleError(err: HttpErrorResponse) {

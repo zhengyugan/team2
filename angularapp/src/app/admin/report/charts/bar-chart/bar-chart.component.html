@@ -1,0 +1,33 @@
+<div class="card-header card-header-theme">
+  <div class="container">
+    <div class="row">
+      <h1 class="col">{{ title }} Orders</h1>
+      <div class="col date-picker d-flex flex-row-reverse">
+        <app-date-range-picker [currentDateRange]="currentDateRange" (actionEvent)="updateBarChartData($event, 'Weekly')" *ngIf="showDateRangePicker"></app-date-range-picker>
+        <app-date-month-picker [currentMonth]="currentMonth" (actionEvent)="updateBarChartData($event, 'Monthly')" *ngIf="showDateMonthPicker"></app-date-month-picker>
+        <app-date-year-picker [currentYear]="currentYear" (actionEvent)="updateBarChartData($event, 'Yearly')" *ngIf="showDateYearPicker"></app-date-year-picker>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-body">
+  <div class="btn-group btn-group-sm d-md-flex justify-content-md-end" role="group">
+    <button class="btn btn-primary"
+            mat-button
+            *ngFor="let button of filterButtons"
+            [ngClass]="{'active': button.isClicked}"
+            (click)="eventHandler(button)">
+      {{ button.text }}
+    </button>
+  </div>
+  <div class="chart">
+    <canvas baseChart style="height:250px"
+            *ngIf="barChartDataset[0].data && barChartDataset[0].data.length > 0"
+            [datasets]="barChartDataset"
+            [options]="barChartOptions"
+            [labels]="barChartLabels"
+            [plugins]="barChartPlugins"
+            [type]="'bar'">
+    </canvas>
+  </div>
+</div>
