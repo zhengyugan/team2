@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { IProduct } from '../../shared/product';
+import { IProduct, Products } from '../../shared/product';
 import { ProductService } from './product.service';
-
 
 @Component({
   selector: 'pm-product-list',
@@ -12,8 +11,8 @@ import { ProductService } from './product.service';
 export class ProductListComponent implements OnInit, OnDestroy {
   errorMessage: string = "";
   sub!: Subscription;
-  filteredProducts: IProduct[] = [];
-  products: IProduct[] = [];
+  filteredProducts: Products[] = [];
+  products: Products[] = [];
   selectedOption: string ="";
   private _listFilter: string = "";
   total = 0;
@@ -22,7 +21,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
   loading = false;
 
   get listFilter(): string {
-    // set the size
     return this._listFilter;
   }
   set listFilter(value: string) {
@@ -32,20 +30,20 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   constructor(private productService: ProductService) { }
 
-  performFilter(filterBy: string): IProduct[] {
+  performFilter(filterBy: string): Products[] {
     filterBy = filterBy.toLocaleLowerCase();
-    return this.products.filter((product: IProduct) =>
-      product.productName.toLocaleLowerCase().includes(filterBy));
+    return this.products.filter((product: Products) =>
+      product.name.toLocaleLowerCase().includes(filterBy));
   }
 
   ngOnInit(): void {
-   this.getProducts();
+   this.getAllProducts();
   }
-
-  getProducts():void{
-    this.sub = this.productService.getProducts().subscribe({
+  
+  getAllProducts(){
+    this.sub = this.productService.getAllProducts().subscribe({
       next: products => {
-        this.products = products;
+        this.products = products['Data'];
         this.filteredProducts = this.products;
         this.total = this.products.length;
       },
@@ -54,17 +52,17 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   goToPrevious(): void {
     this.page--;
-    this.getProducts();
+    this.getAllProducts();
   }
 
   goToNext(): void {
     this.page++;
-    this.getProducts();
+    this.getAllProducts();
   }
 
   goToPage(n: number): void {
     this.page = n;
-    this.getProducts();
+    this.getAllProducts();
   }
 
   onSelectionChange(){

@@ -17,7 +17,7 @@
           <option value="">All</option>
           <option value="collar">Collar</option>
           <option value="harness">Harness</option>
-          <option value="leads">Leads</option>
+          <option value="lead">Lead</option>
         </select>        
       <input class="input-group-text" type="text" [(ngModel)]="listFilter" style="line-height: 3em;" placeholder="Search"/>
     </div>
@@ -27,13 +27,13 @@
                 <div class="card h-100">
                     <!-- Product image-->
                     <div class="card-banner img-holder" style="--width: 360; height: 245.5px;">
-                      <img style="cursor: pointer; background-color: white;" [routerLink]="['/products', product.productId]" class="card-img-top" [src]="product.imageUrl" alt="..." />
+                      <img style="cursor: pointer; background-color: white;" [routerLink]="['/products', product.id]" class="card-img-top" [src]="product.url" alt="..." />
                     </div>
                     <!-- Product details-->
                     <div class="card-body p-4">
                         <div class="text-center">
                             <!-- Product name-->
-                            <h5 style="cursor: pointer;" [routerLink]="['/products', product.productId]" class="fw-bolder">{{product.productName}}</h5>
+                            <h5 style="cursor: pointer;" [routerLink]="['/products', product.id]" class="fw-bolder">{{product.name}}</h5>
                             <!-- Product price-->
                             {{product.price | currency:"MYR ":"symbol":"1.2-2"}}
                         </div>

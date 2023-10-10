@@ -1,14 +1,14 @@
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center" *ngIf="product !==undefined">
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" style="width: 400px; height: 400px;" src={{product.imageUrl}} alt="..." /></div>
-            <div class="col-md-6">
-                <h1 class="display-5 fw-bolder">{{product.productName | slice:0:100}}</h1>
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" style="width: 400px; height: 400px;" src={{product.url}} alt="..." /></div>
+            <div class="col-md-6" >
+                <h1 class="display-5 fw-bolder">{{product.name | slice:0:100}}</h1>
                 <div class="fs-5 mb-5">
                     <span>{{product.price | currency:"MYR ":"symbol":"1.2-2"}}</span>
                 </div>
-                    <p class="lead">Description</p>
-                    <p class="lead">Category : </p>
+                    <p class="lead">{{product.desc}}</p>
+                    <!-- <p class="lead"></p> -->
                
                 <form [formGroup]="form" >
                 <!-- Add colour selection"-->
@@ -32,7 +32,7 @@
                   </div>
                 </div>
 
-                <div class="d-flex">
+                <div class="d-flex" style="margin-top: 2em;">
                     
                     <div class="btn-group" role="group" aria-label="Button group">
                         <button type="button" class="btn btn-secondary" style="margin: 0px;" (click)="updateQuantity('minus')" [disabled]="isButtonDisabled"><fa-icon icon="minus"></fa-icon></button>

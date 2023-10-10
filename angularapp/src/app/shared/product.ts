@@ -8,3 +8,15 @@ export interface IProduct {
   starRating: number;
   imageUrl: string;
 }
+
+export interface Products {
+  id: number;
+  quantity: string;
+  size: string;
+  color: string;
+  length: string;
+  price: string;
+  name: string;
+  desc: string;
+  url: string;
+}
