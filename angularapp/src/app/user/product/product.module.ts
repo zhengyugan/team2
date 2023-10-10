@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { ConvertToSpacesPipe } from '../../shared/convert-to-spaces.pipe';
-import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProductListComponent } from './product-list.component';
 import { ProductDetailsComponent } from './product-details.component';
-import { RouterModule } from '@angular/router';
-import { appRoutes } from 'src/routes';
 import { ProductDetailGuard } from './product-detail.guard';
-import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { CommonModule } from '@angular/common';
+import { SharedModule } from 'src/app/shared/shared.module';
+
+
 
 @NgModule({
   declarations: [
@@ -26,9 +28,10 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    CommonModule
   ],
-  providers:[
+  providers: [
     FontAwesomeModule
   ]
 })

@@ -13,7 +13,6 @@ import { SalesDataService } from './report/services/sales-data.service';
 import { BarChartComponent } from './report/charts/bar-chart/bar-chart.component';
 import { PieChartComponent } from './report/charts/pie-chart/pie-chart.component';
 import { LineChartComponent } from './report/charts/line-chart/line-chart.component';
-import { PaginationComponent } from './report/pagination/pagination.component';
 import { appRoutes } from '../routes';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faCartShopping, faUser,faPlus,faMinus } from '@fortawesome/free-solid-svg-icons';
@@ -21,6 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -32,26 +32,28 @@ import { ReactiveFormsModule } from '@angular/forms';
     BarChartComponent,
     LineChartComponent,
     PieChartComponent,
-    PaginationComponent,
     NgbdModalContent,
     LoginComponent,
     SignupComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    RouterModule.forRoot(appRoutes),
-    ProductModule,
-    NgChartsModule,
-    FontAwesomeModule,
-    ReactiveFormsModule,
-    HttpClientModule
-  ],
-  providers: [
-    SalesDataService,
-    FontAwesomeModule
-  ],
-  bootstrap: [AppComponent, NgbdModalContent],
+    ],
+    exports: [
+        SharedModule
+    ],
+    providers: [
+        SalesDataService,
+        FontAwesomeModule
+    ],
+    bootstrap: [AppComponent, NgbdModalContent],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        RouterModule.forRoot(appRoutes),
+        ProductModule,
+        NgChartsModule,
+        FontAwesomeModule,
+        ReactiveFormsModule,
+        SharedModule
+    ]
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {

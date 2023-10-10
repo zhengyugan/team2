@@ -16,7 +16,7 @@ export const appRoutes: Routes = [
   { path: 'orders', component: SectionOrdersComponent },
   {
     path: 'products/:id',
-    canActivate: [ProductDetailsComponent],
+    canActivate: [ProductDetailGuard],
     component: ProductDetailsComponent
   },
   { path: 'products', component: ProductListComponent },
