@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-@Component({ 
-  selector: 'pm-root', 
+@Component({
+  selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css']
 })
 export class AppComponent {
-  constructor(private modalService: NgbModal) {}
-  open()
-  {
+  constructor(private modalService: NgbModal) { }
+  open() {
     const modalRef = this.modalService.open(NgbdModalContent);
   }
 }
@@ -20,13 +19,13 @@ export class AppComponent {
   templateUrl: './modal/success-modal/modal.component.html',
 })
 export class NgbdModalContent {
-  constructor(public activeModal: NgbActiveModal){}
+  constructor(public activeModal: NgbActiveModal) { }
 }
 
 export class NgbdModalComponent {
-	constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal) { }
 
-	open() {
-		const modalRef = this.modalService.open(NgbdModalContent);
-	}
+  open() {
+    const modalRef = this.modalService.open(NgbdModalContent);
+  }
 }

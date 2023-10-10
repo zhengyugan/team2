@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartDataset, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import { THEME_COLORS } from '../../../shared/theme.colors';
+import { THEME_COLORS } from '../../../../shared/theme.colors';
 
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import * as _ from 'lodash';
