@@ -13,11 +13,15 @@ export class SalesDataService {
     return this.http.get(this.baseUrl + pageIndex + '/' + pageSize).pipe(map(res => res || []));
   }
 
+  getOrdersByDate(startDate: string, endDate: string): Observable<any> {
+    return this.http.get(this.baseUrl + 'bydate/' + startDate + '/' + endDate).pipe(map(res => res || []));
+  }
+
   getOrdersByCustomer(n: number) {
     return this.http.get(this.baseUrl + 'bycustomer/' + n).pipe(map(res => res || []));
   }
 
-  getOrdersByState() {
-    return this.http.get(this.baseUrl + 'bystate/').pipe(map(res => res || []));
+  getLatestOrder(): Observable<any> {
+    return this.http.get(this.baseUrl + 'latest').pipe(map(res => res || []));
   }
 }
