@@ -5,6 +5,7 @@ import { CartService } from './cart.service';
 import { ICart } from './cart';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { OrderUpdateModel } from '../shared/order-update';
 
 @Component({
   templateUrl: './cart.component.html',
@@ -15,6 +16,9 @@ export class CartComponent implements OnInit, OnDestroy {
   imageWidth: number = 50;
   imageMargin: number = 2;
   sub!: Subscription;
+  sub1!: Subscription;
+  sub2!: Subscription;
+  sub3!: Subscription;
   userId: number = 3;
   cart: ICart[] = [];
   total: number = 0;
@@ -29,6 +33,12 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(private cartService: CartService, private modalService: NgbModal) { }
 
   open() {
+    var orderUpdate:OrderUpdateModel = {
+      "total": this.total,
+      "modifiedby": this.userId
+    }
+
+    this.createOrder(this.userId, orderUpdate);
     const modalRef = this.modalService.open(NgbdModalContent);
     modalRef.componentInstance.customMessage = 'Payment Completed!';
   }
@@ -66,7 +76,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   onDelete(id: number) {
-    this.sub = this.cartService.delete(id).subscribe({
+    this.sub1 = this.cartService.delete(id).subscribe({
       next: cart => {
         this.cart = cart['Data'];
       },
@@ -74,9 +84,11 @@ export class CartComponent implements OnInit, OnDestroy {
     location.reload();
   }
 
-  createOrder(userid: number) {
-    this.sub = this.cartService.createOrder(userid).subscribe({
+  createOrder(userid: number, orderUpdate: OrderUpdateModel) {
+    console.log(userid, orderUpdate);
+    this.sub2 = this.cartService.createOrder(userid, orderUpdate).subscribe({
       next: cart => {
+        console.log(789);
         this.cart = cart['Data'];
       },
     });
@@ -97,10 +109,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   getFormControlsFields(cart: ICart []) {
-    //console.log(123);
     const formGroupFields = {};
-    //console.log(456);
-    //console.log(cart);
     cart.forEach(item => {
 
       console.log(item)
@@ -110,7 +119,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.sub3.unsubscribe();
   }
 }
 
@@ -123,8 +132,6 @@ export class NgbdModalContent {
   constructor(public activeModal: NgbActiveModal, private router: Router) { }
 
   onClose() {
-    // Redirect to the product page
-    console.log(789);
     this.router.navigate(['./products']);
     this.activeModal.close();
   }
