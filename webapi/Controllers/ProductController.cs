@@ -1,10 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Any;
-using webapi.Migrations;
-using Microsoft.EntityFrameworkCore;
 using webapi.Models;
-using Newtonsoft.Json;
 
 namespace webapi.Controllers
 {
@@ -49,11 +45,13 @@ namespace webapi.Controllers
             return Ok(new ApiResponseWrapper("", products.ToArray()));
         }
 
-		[HttpGet("GetAllProducts")]
-		public IActionResult getAllProducts()
+		[HttpGet("GetAllProducts/{pageIndex:int}/{pageSize:int}")]
+		public IActionResult getAllProducts(int pageIndex, int pageSize)
 		{
 			var distinctVal = _context.product_variants.Select(
 				e=>e.product.id).Distinct().ToArray();
+
+			var details = new ProblemDetails();
 
 			var products = (from prod_variant in _context.product_variants
 						join product in _context.products on prod_variant.product.id equals product.id
@@ -68,16 +66,23 @@ namespace webapi.Controllers
 							product.name,
 							product.desc,
 							product.url
-						}).Take(distinctVal.Length).ToList();
+						}).GroupBy(obj=>obj.id).Select(group=>group.First()).ToList();
+			
+			
+			var Data = products.Skip((pageIndex-1)*pageSize).Take(pageSize).ToList();
+			var Total = products.Count();
 
-			if (products.Count > 0)
-			{
-				return Ok(new ApiResponseWrapper("", products.ToArray()));
-			}
-			else
-			{
-				return NotFound(new ApiResponseWrapper("Products not found!", products.ToArray()));
-			}
+            var totalCount = (int)((products != null && products.Any()) ? (products?.Count()) : 0);
+            var totalPages = Math.Ceiling((double)totalCount / pageSize);
+
+            var response = new
+            {
+                product = Data,
+				productTotal = Total,
+                TotalPages = totalPages
+            };
+
+            return Ok(response);
 
 		}
 
@@ -140,17 +145,17 @@ namespace webapi.Controllers
         [HttpGet("{id}", Name = "getProduct")]
         public IActionResult getProduct(int id)
         {
-            var product = _context.products.Where(product => product.id == id).ToList();
+			var product = _context.products.Where(product => product.id == id).ToList();
 
-            if (product.Count > 0)
-            {
-                return Ok(new ApiResponseWrapper("", product.ToArray()));
-            }
-            else
-            {
-                return NotFound(new ApiResponseWrapper("Product not found!", product.ToArray()));
-            }
-        }
+			if (product.Count > 0)
+			{
+				return Ok(new ApiResponseWrapper("", product.ToArray()));
+			}
+			else
+			{
+				return NotFound(new ApiResponseWrapper("Product not found!", product.ToArray()));
+			}
+		}
 
         [HttpGet("GetProductById/{id}")]
 		public IActionResult getProductById(int id)
@@ -187,18 +192,27 @@ namespace webapi.Controllers
 			var prodVariantList = _context.product_variants.ToList();
 			var userList = _context.users.ToList();
 
-			// new Carts { 
-			// 	user = userList.First(c=>c.id == cartInfo.user_id),
-			// 	product_variant = prodVariantList.First(c => c.id == cartInfo.product_variant_id),
-			// }
-			//_context.carts.Add(cart);
-			await _context.SaveChangesAsync();
+			var cart = new Carts
+			{
+				user = userList.First(c => c.id == cartInfo.user_id),
+				product_variant = prodVariantList.First(c => c.id == cartInfo.product_variant_id),
+				quantity = cartInfo.quantity
+			};
+			_context.carts.Add(cart);
+		
 
-			//var result = _context.product_variants.First(prod => prod.id == cart.id);
+			int initialQuantity = prodVariantList.Single(c => c.id == cartInfo.product_variant_id).quantity;
+
+			int finalQuantity = initialQuantity - cartInfo.quantity;
+
+			var updateQuery = _context.product_variants.Find(cartInfo.product_variant_id);
+			updateQuery.quantity = finalQuantity;
 
 			List<Carts> objList = new List<Carts>();
 
-            return Ok(new ApiResponseWrapper("", objList.ToArray()));
+			await _context.SaveChangesAsync();
+
+			return Ok(new ApiResponseWrapper("", objList.ToArray()));
 
 		}
 
@@ -213,7 +227,8 @@ namespace webapi.Controllers
 								 prod_variant.size,
 								 prod_variant.color,
 								 prod_variant.id,
-								 prod_variant.quantity
+								 prod_variant.quantity,
+								 prod_variant.length
 							 }).ToList();
 			if (variation.Count > 0)
 			{
