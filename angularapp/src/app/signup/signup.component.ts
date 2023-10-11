@@ -40,14 +40,14 @@ ngOnInit(): void{
       console.log(this.signUpForm.value)
       this.auth.signUp(this.signUpForm.value)
       .subscribe({
-        next:(res=>{
+        next:(res)=>{
           alert(res.message)
           this.signUpForm.reset();
           this.router.navigate(['login']);
-        }),
-        error:(err=>{
+        },
+        error:(err)=>{
           alert(err?.error.message)
-        })
+        }
       })
     }else{
       ValidateForm.validateInput(this.signUpForm);

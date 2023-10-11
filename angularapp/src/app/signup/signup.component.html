@@ -36,7 +36,7 @@
                                   </div>
                                   <small *ngIf="signUpForm.controls['password'].dirty && signUpForm.hasError('required','password')" class="text-danger">Password is required</small>
                                 </div>
-                                <div class="mb-3">
+                                <!-- <div class="mb-3">
                                   <span class="fa-solid fa-lock p-2"></span>
                                   <label for="exampleDropdownFormPassword1" class="form-label">Re-enter Password</label>
                                   <div class="input-group">
@@ -52,7 +52,7 @@
                                       I agree with all the <a href="">terms</a> and <a href="">condition</a>
                                     </label>
                                   </div>
-                                </div>
+                                </div>-->
                                 <div class="d-flex justify-content-center">
                                   <button (click)="onSignUp()" type="submit" class="btn btn-primary me-2">Register</button>
                                   <button (click)="cancel()" type="submit" class="btn btn-dark">Cancel</button>

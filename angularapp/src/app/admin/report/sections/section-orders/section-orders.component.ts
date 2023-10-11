@@ -16,6 +16,7 @@ export class SectionOrdersComponent implements OnInit {
   page = 1;
   limit = 10;
   loading = false;
+  title = "orders";
 
   ngOnInit() {
     this.getOrders();
@@ -25,8 +26,9 @@ export class SectionOrdersComponent implements OnInit {
     this._salesData.getOrders(this.page, this.limit)
       .subscribe(
         (res) => {
-          this.orders = res.page.data;
-          this.total = res.page.total;
+          console.log(res);
+          this.orders = res.Page.Data;
+          this.total = res.Page.Total;
           this.loading = false;
         }
     )

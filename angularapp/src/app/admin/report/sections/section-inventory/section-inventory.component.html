@@ -1,0 +1,35 @@
+<div class="section-container">
+  <table class="table table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>Product ID</th>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Color</th>
+        <th>Length</th>
+        <th>Quantity</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let productVariant of productVariants">
+        <td>{{ productVariant.product.id }}</td>
+        <td>{{ productVariant.product.name }}</td>
+        <td>{{ productVariant.size }}</td>
+        <td>{{ productVariant.color }}</td>
+        <td>{{ productVariant.length }}</td>
+        <td>{{ productVariant.quantity }}</td>
+        <td><a routerLink="/admin/product/{{ productVariant.product.id }}"><button class="btn btn-success pull-right">Edit</button></a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <app-pagination (goPage)="goToPage($event)"
+                  (goPrev)="goToPrevious()"
+                  (goNext)="goToNext()"
+                  [page]="page"
+                  [perPage]="limit"
+                  [count]="total"
+                  [title]="title">
+  </app-pagination>
+</div>

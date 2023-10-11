@@ -3,7 +3,6 @@ import { ChartConfiguration, ChartDataset, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { SalesDataService } from '../../services/sales-data.service';
 
-import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 import * as moment from 'moment';
 
 @Component({
@@ -38,6 +37,7 @@ export class BarChartComponent implements OnInit {
 
   barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: true,
@@ -48,8 +48,7 @@ export class BarChartComponent implements OnInit {
       },
     },
   };
-  barChartType: ChartType = 'bar';
-  barChartPlugins = [DataLabelsPlugin];
+  barChartPlugins = [];
   barChartLabels!: string[];
 
   barChartDataset: ChartDataset[] = [
@@ -68,7 +67,7 @@ export class BarChartComponent implements OnInit {
       this._salesDataService.getOrdersByDate(this.startDate, this.endDate)
         .subscribe(
           (res) => {
-            const localChartData = this.getChartData(res.data);
+            const localChartData = this.getChartData(res.Data);
 
             this.barChartLabels = localChartData.map((x: any[]) => x[0]);
             this.barChartDataset[0].data = localChartData.map((x: any[]) => x[1]);
@@ -83,14 +82,14 @@ export class BarChartComponent implements OnInit {
       this._salesDataService.getOrdersByDate(this.startDate, this.endDate)
         .subscribe(
           (res) => {
-            const localChartData = this.getChartData(res.data);
+            const localChartData = this.getChartData(res.Data);
 
             interface GroupedData {
               [key: string]: number;
             }
 
             const groupedDates: GroupedData = localChartData.reduce((acc: any, obj: any) => {
-              const tempDate = new Date(obj[0]);
+              const tempDate = new Date(moment(obj[0], "YY-MM-DD").format("YYYY/MM/DD").toString());
               const monthYear = this.getMonthName(tempDate.getMonth() + 1);
 
               if (!acc[monthYear]) {
@@ -120,10 +119,10 @@ export class BarChartComponent implements OnInit {
   }
 
   getChartData(res: any) {
-    this.orders = res.page.data;
+    this.orders = res;
 
     const formattedOrders = this.orders.reduce((data: any[], order: any) => {
-      data.push([moment(order.date).format('YY-MM-DD'), order.total]);
+      data.push([moment(order.Date).format('YY-MM-DD'), order.Total]);
       return data;
     }, []);
 
