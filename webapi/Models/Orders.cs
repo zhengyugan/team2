@@ -8,8 +8,7 @@ namespace webapi.Models
         public int id { get; set; }
         [ForeignKey("user_id")]
         public required Users users { get; set; }
-        public float total { get; set; }
-        public int payment_id { get; set; }
+        public float? total { get; set; }
         public string payment_status { get; set; }
         public string order_status { get; set; }
 		public DateTime? deleted_at { get; set; }

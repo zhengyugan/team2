@@ -8,14 +8,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
-
 import { faCartShopping, faUser, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-
 import { AppComponent, NgbdModalContent } from './app.component';
 import { NgChartsModule } from 'ng2-charts';
-
 import { appRoutes } from '../routes';
 import { ProductModule } from './user/product/product.module';
+import { AdminProductModule } from './admin/product/product.module';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SectionSalesComponent } from './admin/report/sections/section-sales/section-sales.component';
@@ -32,9 +30,11 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { SharedModule } from './shared/shared.module';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CartModule } from './cart/cart.module';
 
 
 @NgModule({
+
   declarations: [
     AppComponent,
     SignupComponent,
@@ -52,6 +52,7 @@ import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontaweso
     DateYearPickerComponent,
     NgbdModalContent
   ],
+
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -59,6 +60,7 @@ import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontaweso
     FontAwesomeModule,
     RouterModule.forRoot(appRoutes),
     ProductModule,
+    AdminProductModule,
     NgChartsModule,
     ReactiveFormsModule,
     SharedModule,
@@ -69,8 +71,13 @@ import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontaweso
     FormsModule
   ],
   exports: [
-    SharedModule
+    SharedModule,
+    FontAwesomeModule,
+    CartModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
+
   providers: [
     SalesDataService,
     FontAwesomeModule
@@ -80,6 +87,7 @@ import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontaweso
     NgbdModalContent
   ]
 })
+
 export class AppModule {
   constructor(library: FaIconLibrary) {
     library.addIcons(

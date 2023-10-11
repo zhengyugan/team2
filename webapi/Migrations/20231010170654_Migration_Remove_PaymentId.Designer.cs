@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webapi.Models;
 
@@ -11,9 +12,11 @@ using webapi.Models;
 namespace webapi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20231010170654_Migration_Remove_PaymentId")]
+    partial class Migration_Remove_PaymentId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,14 +149,11 @@ namespace webapi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("payment_id")
-                        .HasColumnType("int");
-
                     b.Property<string>("payment_status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("total")
+                    b.Property<float?>("total")
                         .HasColumnType("real");
 
                     b.Property<int>("user_id")
@@ -234,6 +234,7 @@ namespace webapi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("length")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("modified_by")
@@ -252,6 +253,7 @@ namespace webapi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("size")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
@@ -299,10 +301,6 @@ namespace webapi.Migrations
 
                     b.Property<int>("product_category_id")
                         .HasColumnType("int");
-
-                    b.Property<string>("sizing_type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("url")
                         .IsRequired()
@@ -412,9 +410,11 @@ namespace webapi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("first_name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("last_name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("mobile")
@@ -431,12 +431,14 @@ namespace webapi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("role")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("telephone")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("username")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
@@ -496,7 +498,7 @@ namespace webapi.Migrations
             modelBuilder.Entity("webapi.Models.ProductVariant", b =>
                 {
                     b.HasOne("webapi.Models.Products", "product")
-                        .WithMany("product_variants")
+                        .WithMany()
                         .HasForeignKey("product_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -524,11 +526,6 @@ namespace webapi.Migrations
                         .IsRequired();
 
                     b.Navigation("user");
-                });
-
-            modelBuilder.Entity("webapi.Models.Products", b =>
-                {
-                    b.Navigation("product_variants");
                 });
 #pragma warning restore 612, 618
         }

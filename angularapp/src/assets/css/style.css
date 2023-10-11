@@ -121,7 +121,15 @@ body {
   }
   
   .form-control{
-    line-height: 3em !important; 
+    line-height: 2.5em !important; 
+  }
+
+  .form-select{
+    line-height: 2.5em;
+  }
+
+  .input-group-text{
+    line-height: 2.5em;
   }
   
   address { font-style: normal; }
