@@ -1,0 +1,50 @@
+[
+  {
+    "productName": "Dog Lead",
+    "productColour": "Red",
+    "productSize": "40cm",
+    "price": 20.00,
+    "quantity": 2,
+    "imageUrl": "assets/images/dog_lead.jpg"
+  },
+  {
+    "productName": "Cat Lead",
+    "productColour": "Blue",
+    "productSize": "50cm",
+    "price": 15.00,
+    "quantity": 1,
+    "imageUrl": "assets/images/cat_lead.jpg"
+  },
+  {
+    "productName": "Dog Collar",
+    "productColour": "Purple",
+    "productSize": "L",
+    "price": 25.00,
+    "quantity": 1,
+    "imageUrl": "assets/images/dog_collar.jpg"
+  },
+  {
+    "productName": "Dog Harness",
+    "productColour": "White",
+    "productSize": "L",
+    "price": 30.00,
+    "quantity": 2,
+    "imageUrl": "assets/images/dog_harness.jpg"
+  },
+  {
+    "productName": "Cat Collar",
+    "productColour": "Black",
+    "productSize": "S",
+    "price": 20.00,
+    "quantity": 1,
+    "imageUrl": "assets/images/cat_collar.jpg"
+  },
+  {
+    "productName": "Cat Harness",
+    "productColour": "Grey",
+    "productSize": "M",
+    "price": 25.00,
+    "quantity": 2,
+    "imageUrl": "assets/images/cat_harness.jpg"
+  }
+]
