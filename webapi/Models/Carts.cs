@@ -10,7 +10,7 @@ namespace webapi.Models
         [ForeignKey("user_id")]
         public required Users user { get; set; }
         [ForeignKey("product_variant_id")]
-        public required ProductCategories product_variant { get; set; }
+        public required ProductVariant product_variant { get; set; }
         public int quantity { get; set; }
 		public DateTime? deleted_at { get; set; }
 		public int? deleted_by { get; set; }
