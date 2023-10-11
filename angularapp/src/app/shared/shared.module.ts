@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { StarComponent } from './star/star.component';
 import { FormsModule } from '@angular/forms';
 import { PaginationComponent } from './pagination/pagination.component';
+import { ImageComponent } from './image/image.component';
 
 
 
@@ -10,6 +11,7 @@ import { PaginationComponent } from './pagination/pagination.component';
   declarations: [
     StarComponent,
     PaginationComponent,
+    ImageComponent
   ],
   imports: [
     CommonModule
