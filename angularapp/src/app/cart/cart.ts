@@ -1,10 +1,12 @@
-export interface ICart {
-  productName: string;
-  productColour: string;
-  productSize: string;
+export interface ICart{
+  url: string;
+  id: number;
+  name: string;
+  size: string;
+  color: string;
+  length: string;
   price: number;
   quantity: number;
-  imageUrl: string;
-  dropdownColour: [];
-  dropdownSize: [];
+  deleted_at: string;
+  moodified_at: string;
 }

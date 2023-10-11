@@ -8,13 +8,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
-
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartShopping, faUser, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-
 import { AppComponent, NgbdModalContent } from './app.component';
 import { NgChartsModule } from 'ng2-charts';
-
 import { appRoutes } from '../routes';
 import { ProductModule } from './user/product/product.module';
 import { HeaderComponent } from './header/header.component';

@@ -22,7 +22,14 @@ export class AppComponent {
 })
 export class NgbdModalContent {
   @Input() customMessage: any;
-  constructor(public activeModal: NgbActiveModal){}
+  constructor(public activeModal: NgbActiveModal) { }
+
+  onClose() {
+    // Redirect to the product page
+    //console.log(789);
+  //  this.router.navigate(['./products']);
+  //  this.activeModal.close();
+  }
 }
 
 export class NgbdModalComponent {

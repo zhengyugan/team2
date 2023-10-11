@@ -5,65 +5,40 @@
   </div>
   <div class="card-body">
     <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Product Image</th>
-            <th>Product Name</th>
-            <th>Product Colour</th>
-            <th>Product Size</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th hidden>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let product of cart">
-            <td>
-              <img [src]="product.imageUrl" alt="Product Image" class="product-image" [style.width.px]="imageWidth" [style.margin.px]="imageMargin" />
-            </td>
-            <td>{{ product.productName }}</td>
-            <td>
-              <div mdbDropdown class="dropdown">
-                <button class="btn btn-primary dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton"
-                        aria-expanded="false"
-                        mdbDropdownToggle>
-                  {{ product.productColour }}
-                </button>
-                {{product.dropdownColour}}
-                <!--<ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngFor="let dropdown of product.dropdownColour">
-                  <li><a class="dropdown-item" href="#">{{ dropdown.colour }}</a></li>
-                </ul>-->
-              </div>
-            </td>
-            <td>
-              <div mdbDropdown class="dropdown">
-                <button class="btn btn-primary dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton"
-                        aria-expanded="false"
-                        mdbDropdownToggle>
-                  {{ product.productSize }}
-                </button>
-                <!--<ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngFor="let dropdown of product.dropdownSize">
-                  <li><a class="dropdown-item" href="#">{{ dropdown.size }}</a></li>
-                </ul>-->
-              </div>
-            </td>
-            <td>{{ product.price }}</td>
-            <td>{{ product.quantity }}</td>
-            <td><button mat-button color="primary" type="button" class="bi bi-trash orange-color"></button></td>
-          </tr>
-          <!--<td><button class="btn btn-primary">Checkout</button></td>-->
-        </tbody>
-      </table>
-      <div class="content">
-        Subtotal: RM{{ subtotal }} <br/>
-        Total: RM{{ total }}<br/><br/>
-        <button class="btn btn-primary" (click)="open()">Checkout</button>
-      </div>
+      <form [formGroup]="form">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Product Image</th>
+              <th>Product Name</th>
+              <th>Product Colour</th>
+              <th>Product Type</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Subtotal (MYR)</th>
+              <th hidden>Delete</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let product of cart">
+            <tr *ngIf="!product.deleted_at">
+              <td>
+                <img [src]="product.url" alt="Product Image" class="product-image" [style.width.px]="imageWidth" [style.margin.px]="imageMargin" />
+              </td>
+              <td>{{ product.name }}</td>
+              <td>{{ product.color }}</td>
+              <td>{{ product.size }}</td>
+              <td>{{ product.price }}</td>
+              <td>{{ product.quantity }}</td>
+              <td>{{ product.price * product.quantity }}</td>
+              <td><button mat-button color="primary" type="button" class="bi bi-trash orange-color" (click)="onDelete(product.id)"></button></td>
+    </tr>
+    </tbody>
+    </table>
+    <div class="content">
+      Total: RM {{ total }}<br /><br />
+      <button class="btn btn-primary" (click)="open()">Checkout</button>
     </div>
+    </form>
+  </div>
   </div>
 </div>

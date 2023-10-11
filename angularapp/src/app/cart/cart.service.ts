@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ICart } from "./cart";
-import { Observable, catchError, tap, throwError } from "rxjs";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { Observable, catchError, map, tap, throwError } from "rxjs";
+import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
+import { constant } from 'lodash';
+import { __param } from 'tslib';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   private cartUrl = 'api/cart/cart.json';
-  //baseUrl: string = 'https://localhost:7056/api/Cart';
+  baseUrl: string = 'https://localhost:7056/';
 
   constructor(private http: HttpClient) { }
 
@@ -17,6 +19,15 @@ export class CartService {
       tap(data => console.log('All', JSON.stringify(data))),
       catchError(this.handleError)
     );
+  }
+
+  public getCartItem(id: number) {
+    return this.http.get(this.baseUrl + 'api/Cart/' + id).pipe(map((res: any) => res || []));
+  }
+
+  public delete(id: number) {
+    const __param = new HttpParams({});
+    return this.http.put(this.baseUrl + 'api/Cart/' + id, __param).pipe(map((res: any) => res || []));
   }
 
   private handleError(err: HttpErrorResponse) {
