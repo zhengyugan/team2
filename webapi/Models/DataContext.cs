@@ -49,5 +49,6 @@ namespace webapi.Models
 				.Property(b => b.created_at)
 				.HasDefaultValueSql("getdate()");
 		}
+
 	}
 }

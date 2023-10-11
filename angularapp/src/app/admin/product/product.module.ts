@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AdminProductDetailComponent } from './product-detail/product-detail.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { AdminProductCreateComponent } from './product-create/product-create.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { AdminProductCreateComponent } from './product-create/product-create.com
     AdminProductCreateComponent,
   ],
   imports: [
+    FontAwesomeModule,
     CommonModule,
     SharedModule,
     FormsModule,

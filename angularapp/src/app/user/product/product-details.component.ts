@@ -60,8 +60,7 @@ export class ProductDetailsComponent {
             _colourList.push(variant.color);
           }
 
-       
-          if(variant.size!=null){
+          if(variant.size != null && variant.size != ""){
             if(!_typeList.includes(variant.size) && variant.quantity>0){
               _typeList.push(variant.size);
               }

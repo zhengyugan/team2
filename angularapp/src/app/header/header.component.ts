@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'pm-header',
@@ -6,5 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  isLoggedIn = false;
+  // isLoggedIn = false;
+
+  constructor( private auth: AuthService){}
+
+  loggedin(){
+    return localStorage.getItem('token');
+  }
+  
+  logout(){
+    this.auth.signOut()
+  }
 }
+
