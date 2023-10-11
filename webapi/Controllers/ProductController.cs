@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Any;
 using webapi.Migrations;
 using webapi.Models;
@@ -13,6 +14,26 @@ namespace webapi.Controllers
         public ProductController(DataContext context)
         {
             _context = context;
+        }
+
+        [HttpGet("{pageIndex:int}/{pageSize:int}")]
+        public IActionResult Get(int pageIndex, int pageSize)
+        {
+            var data = _context.product_variants?.Include(product_variant => product_variant.product)
+                .Where(product_variant => product_variant.quantity <= 10);
+
+            var page = new PaginatedResponse<ProductVariant>(data, pageIndex, pageSize);
+
+            var totalCount = (int)((data != null && data.Any()) ? (data?.Count()) : 0);
+            var totalPages = Math.Ceiling((double)totalCount / pageSize);
+
+            var response = new
+            {
+                Page = page,
+                TotalPages = totalPages
+            };
+
+            return Ok(response);
         }
 
         [HttpGet]
