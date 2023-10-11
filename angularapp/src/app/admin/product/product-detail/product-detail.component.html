@@ -1,66 +1,128 @@
-<div class="card m-4">
-    <div class="card-header">
-      {{pageTitle + ': ' + product?.productName}}
-    </div>
-    <div class="card-body mb-5">
-      <form>
-        <div class="row">
-          <div class="form-group mb-4 col-6">
-            <label for="exampleInputEmail1" class="mb-2">Name</label>
-            <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Product Name">
-          </div>
-          <div class="form-group mb-3 col-6">
-            <label for="validationDefaultUsername" class="mb-2">Price</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroupPrepend2">RM</span>
-              </div>
-              <input type="number" class="form-control" id="validationDefaultUsername" aria-describedby="inputGroupPrepend2" required>
+<div class="m-4 px-3 fs-2">
+  {{pageTitle}}
+</div>
+
+<form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+  <div class="mb-5">
+      <div class="card m-4">
+        <div class="card-header fs-4">
+          Product Details
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <input type="text" [hidden]="true" class="form-control" name="id" formControlName="id">
+            <div class="form-group mb-4 col-6">
+              <label for="name" class="mb-2">Name</label>
+              <input type="text" class="form-control" name="name" formControlName="name" placeholder="Product Name">
             </div>
-          </div>
-          <div class="form-group mb-4 col-6">
-            <label for="exampleFormControlTextarea1" class="mb-2">Description</label>
-            <textarea class="form-control" rows="3" placeholder="Product Description"></textarea>
-          </div>
-          
-          <div class="form-group mb-4 col-6">
-            <label for="exampleFormControlSelect1" class="mb-2">Product Category</label>
-            <select class="form-select" >
-              <option></option>
-              <option>Category A</option>
-              <option>Category B</option>
-            </select>
-          </div>
-          
-          <div class="form-group mb-3 col-6">
-            <label for="exampleInputEmail1" class="mb-2">Color</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Product Color">
-          </div>
-          <div class="form-group mb-3 col-6">
-            <label for="exampleFormControlSelect1" class="mb-2">Size</label>
-            <select class="form-select" >
-              <option></option>
-              <option>S</option>
-              <option>M</option>
-              <option>L</option>
-            </select>
-          </div>
-          <div class="form-group mb-3 col-6">
-            <label for="validationUsername" class="mb-2">Length</label>
-            <div class="input-group">
-              <input type="number" class="form-control" id="validationUsername" aria-describedby="inputGroupPrependLength" required>
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroupPrependLength">CM</span>
+            <div class="form-group mb-3 col-6">
+              <label for="price" class="mb-2">Price</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">RM</span>
+                </div>
+                <input type="number" class="form-control" name="price" formControlName="price" required>
               </div>
             </div>
-          </div>
-          <div class="form-group mb-4 col-6">
-            <label for="" class="mb-2">Image Upload</label>
-            <pm-file-upload></pm-file-upload>
+            <div class="form-group mb-4 col-6">
+              <label for="description" class="mb-2">Description</label>
+              <textarea class="form-control" name="description" formControlName="description" rows="3" placeholder="Product Description"></textarea>
+            </div>
+            <div class="form-group mb-4 col-6">
+              <label for="productCategoryId" class="mb-2">Product Category</label>
+              <select name="productCategoryId" formControlName="productCategoryId" class="form-select" >
+                <option [value]="" name="productCategoryId"></option>
+                <option [value]="1" name="productCategoryId">Cat</option>
+                <option [value]="2" name="productCategoryId">Dog</option>
+              </select>
+            </div>
+            <div class="form-group mb-3 col-6">
+              <label for="sizingType" class="mb-2">Sizing Type</label>
+              <div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="sizingType" formControlName="sizingType" value="length" [checked]="false" (click)="onItemChange('length')">
+                  <label class="form-check-label" for="sizingType" class="fs-4">
+                    Length
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="sizingType" formControlName="sizingType" value="size" [checked]="false" (click)="onItemChange('size')">
+                  <label class="form-check-label" for="sizingType" class="fs-4">
+                    Size
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </form>
-    </div>
+      </div>
+      
+      <div class="card m-4" [hidden]="hideVariantDiv">
+        <div class="card-header fs-4">
+          <div class="row">
+            <div class="col">
+              <div class="d-flex justify-content-between">
+                <div>
+                  Product Variants
+                </div>
+                <div>
+                  <button *ngIf="productVariants().length > 1" type="button" class="btn btn-primary" (click)="removeQuantity()">
+                    <i class="fa-solid fa-minus"></i>
+                  </button>
+                  <button class="btn btn-primary" type="button" (click)="addQuantity()">
+                    <i class="fa-solid fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div formArrayName="productVariants">
+          <div class="card-body bg-light m-2" *ngFor="let productVariant of productVariants().controls;  let i=index" [formGroupName]="i">
+            <div class="row">
+              <div class="form-group mb-3 col-4">
+                <label for="color" class="mb-2">Color</label>
+                <input type="text" class="form-control" name="color" formControlName="color" placeholder="Product Color">
+              </div>
+              <div class="form-group mb-3 col-4" [hidden]="hideLengthDiv">
+                <label for="length" class="mb-2">Length</label>
+                <div class="input-group">
+                  <input type="number" min="0" class="form-control" name="length" formControlName="length" required>
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">CM</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mb-3 col-4" [hidden]="hideSizeDiv">
+                <label for="size" class="mb-2">Size</label>
+                <input type="text" class="form-control" name="size" formControlName="size" required>
+              </div>
+              <div class="form-group mb-3 col-4">
+                <label for="quantity" class="mb-2">Quantity</label>
+                <input type="number" min="0" class="form-control" name="quantity" formControlName="quantity" required>
+              </div>
+              <input type="text" class="form-control" name="productVariantId" formControlName="productVariantId" [hidden]="true">
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="card m-4">
+        <div class="card-header fs-4">
+          Product Attachments
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="form-group mb-4 col-6">
+              <label for="" class="mb-2">Image Upload</label>
+              <pm-file-upload></pm-file-upload>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="m-4">
     <div class="card-footer d-flex justify-content-between">
       <button class="btn btn-primary" (click)="onBack()">
         <i class="fa fa-chevron-left"></i> Back
@@ -68,4 +130,4 @@
       <button type="submit" class="btn btn-primary align-self-end">Submit</button>
     </div>
   </div>
-  
+</form>

@@ -24,6 +24,7 @@ export class AdminProductCreateComponent implements OnInit{
     private productService: ProductService
     ) { 
     this.createForm = this.formBuilder.group({
+      id: '',
       name: '',
       description: '',
       price: '',
@@ -94,9 +95,10 @@ export class AdminProductCreateComponent implements OnInit{
   }
 
   onSubmit() {
-    console.log('formmmmmmmas', this.createForm.value);
-    console.log('juj', this.productService.storeProducts( this.createForm.value));
-    console.log('done');
+
+    this.productService.storeProducts( this.createForm.value);
+    alert("Success SAVE");
+
   }
 
 }

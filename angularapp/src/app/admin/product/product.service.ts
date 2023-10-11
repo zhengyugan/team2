@@ -18,7 +18,7 @@ export class ProductService {
   getProducts() {
     return this.http.get(this.url+'api/Product').pipe
     (
-      tap( response =>console.log('api/Product', JSON.stringify(response))),
+      tap( response =>JSON.stringify(response)),
       catchError(this.handleError)
     );
   }
@@ -27,7 +27,6 @@ export class ProductService {
 
     return this.http.get(this.url+'api/Product/GetAllProducts').subscribe(data=>{
       this.products = JSON.stringify(data);
-      // console.log(this.products);
     })
   }
 
@@ -48,10 +47,18 @@ export class ProductService {
   }
 
   storeProducts(data: any){
-    return this.http.post(this.url + 'api/Product/storeProduct', data).subscribe(responsedata=>{
-      // this.products = JSON.stringify(data);
-      console.log('ni la dia', JSON.stringify(responsedata));
+    return this.http.post(this.url + 'api/Product/StoreProduct', data).subscribe(responsedata=>{
     });
+  }
+
+  patchProducts(data: any){
+    return this.http.patch(this.url + 'api/Product/PatchProduct', data).subscribe(responsedata=>{
+    });
+  }
+
+  showProduct(id: any)
+  {
+    return this.http.get(this.url+'api/Product/' + id).pipe(map(res => res || []));
   }
 
   private handleError(err: HttpErrorResponse) {
