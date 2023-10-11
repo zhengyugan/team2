@@ -20,6 +20,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SectionSalesComponent } from './admin/report/sections/section-sales/section-sales.component';
 import { SectionOrdersComponent } from './admin/report/sections/section-orders/section-orders.component';
+import { SectionInventoryComponent } from './admin/report/sections/section-inventory/section-inventory.component';
 import { SalesDataService } from './admin/report/services/sales-data.service';
 import { BarChartComponent } from './admin/report/charts/bar-chart/bar-chart.component';
 import { PieChartComponent } from './admin/report/charts/pie-chart/pie-chart.component';
@@ -42,6 +43,7 @@ import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontaweso
     FooterComponent,
     SectionSalesComponent,
     SectionOrdersComponent,
+    SectionInventoryComponent,
     BarChartComponent,
     LineChartComponent,
     PieChartComponent,

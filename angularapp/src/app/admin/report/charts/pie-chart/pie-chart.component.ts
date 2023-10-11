@@ -16,8 +16,9 @@ const theme = 'Default';
 export class PieChartComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
-  public pieChartOptions: ChartConfiguration['options'] = {
+  pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: true,
@@ -33,8 +34,8 @@ export class PieChartComponent implements OnInit {
     },
   };
 
-  public pieChartLabels!: string[];
-  public pieChartDataset: ChartDataset[] = [
+  pieChartLabels!: string[];
+  pieChartDataset: ChartDataset[] = [
     {
       data: [],
       backgroundColor: this.themeColors(theme),
@@ -42,8 +43,7 @@ export class PieChartComponent implements OnInit {
     }
   ];
 
-  public pieChartType: ChartType = 'doughnut';
-  public pieChartPlugins = [DatalabelsPlugin];
+  pieChartPlugins = [DatalabelsPlugin];
 
   @Input() inputData: any;
   @Input() limit!: number;

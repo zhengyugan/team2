@@ -42,11 +42,12 @@ namespace webapi.Controllers
 			{
 				return BadRequest();
 			}
+			userObj.role = "User";
 			await _context.users.AddAsync(userObj);
 			await _context.SaveChangesAsync();
 			return Ok(new
 			{
-				Message = "User Registered!"
+				message = "User Registered!"
 			});
 		}
 	}
