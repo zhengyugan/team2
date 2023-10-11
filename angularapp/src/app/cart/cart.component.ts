@@ -5,6 +5,7 @@ import { CartService } from './cart.service';
 import { ICart } from './cart';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { Carts } from '../shared/cart';
 
 @Component({
   templateUrl: './cart.component.html',
