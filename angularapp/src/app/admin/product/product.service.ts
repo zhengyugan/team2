@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse, HttpEvent, HttpRequest } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpParams, HttpRequest } from "@angular/common/http";
 import { Observable, catchError, map, tap, throwError } from "rxjs";
 
 import { IProduct } from "./product";
@@ -18,7 +18,7 @@ export class ProductService {
   getProducts() {
     return this.http.get(this.url+'api/Product').pipe
     (
-      tap( response =>console.log('api/Product', JSON.stringify(response))),
+      tap( response =>JSON.stringify(response)),
       catchError(this.handleError)
     );
   }
@@ -27,8 +27,12 @@ export class ProductService {
 
     return this.http.get(this.url+'api/Product/GetAllProducts').subscribe(data=>{
       this.products = JSON.stringify(data);
-      // console.log(this.products);
     })
+  }
+
+  public deleteProduct(id:number){
+    const __param = new HttpParams({});
+    return this.http.put(this.url + 'api/Product/DeleteItem/' + id, __param).pipe(map((res: any) => res || []));
   }
 
   upload(file: File): Observable<HttpEvent<any>> {
@@ -48,10 +52,18 @@ export class ProductService {
   }
 
   storeProducts(data: any){
-    return this.http.post(this.url + 'api/Product/storeProduct', data).subscribe(responsedata=>{
-      // this.products = JSON.stringify(data);
-      console.log('ni la dia', JSON.stringify(responsedata));
+    return this.http.post(this.url + 'api/Product/StoreProduct', data).subscribe(responsedata=>{
     });
+  }
+
+  patchProducts(data: any){
+    return this.http.patch(this.url + 'api/Product/PatchProduct', data).subscribe(responsedata=>{
+    });
+  }
+
+  showProduct(id: any)
+  {
+    return this.http.get(this.url+'api/Product/' + id).pipe(map(res => res || []));
   }
 
   private handleError(err: HttpErrorResponse) {

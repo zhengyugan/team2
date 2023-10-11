@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using webapi.Models;
+using Newtonsoft.Json;
+using System.Linq;
 
 namespace webapi.Controllers
 {
@@ -53,10 +55,10 @@ namespace webapi.Controllers
 
 			var details = new ProblemDetails();
 
-			var products = (from prod_variant in _context.product_variants
-						join product in _context.products on prod_variant.product.id equals product.id
-						select new
-						{
+			var products = (from prod_variant in _context.product_variants 
+							join product in _context.products on prod_variant.product.id equals product.id
+							select new
+							{
 							product.id,
 							prod_variant.quantity,
 							prod_variant.size,
@@ -65,7 +67,8 @@ namespace webapi.Controllers
 							prod_variant.price,
 							product.name,
 							product.desc,
-							product.url
+							product.url,
+							product.deleted_at
 						}).GroupBy(obj=>obj.id).Select(group=>group.First()).ToList();
 			
 			
@@ -87,65 +90,116 @@ namespace webapi.Controllers
 		}
 
         [HttpPost("StoreProduct")]
-        public IActionResult storeProduct([FromBody] dynamic product)
+        public IActionResult storeProduct([FromBody] StoreProductDto productDto)
         {
-            Console.WriteLine("before");
-            Console.WriteLine(product);
-            Console.WriteLine("HEllo");
+            ProductCategories product_category = _context.product_categories.Find(productDto.ProductCategoryId);
 
-			var productCat = 1;
-			if (product.productCategoryId == 1)
-			{
-				productCat = 1;
-			}
-			else
-			{
-				productCat = 2;
-			}
-
-            var product_category = _context.product_categories.First(
-            	product_category_ => product_category_.id == productCat);
-
-            Products productStore = new Products
+            Products? product = new Products
 			{
 				product_category = product_category,
-				name = product.name,
-				desc = product.description,
+				name = productDto.Name,
+				desc = productDto.Description,
 				url = "product.url",
-				sizing_type = product.sizingType,
+				sizing_type = productDto.SizingType,
 				created_at = DateTime.Now,
 				created_by = 1,
 			};
-			_context.products.Add(productStore);
-			_context.SaveChangesAsync();
+			_context.products.Add(product);
+			_context.SaveChanges();
 
-            Console.WriteLine("before");
-            Console.WriteLine(productStore.ToString());
-            Console.WriteLine("after");
 
-   //         ProductVariant productVariants = new ProductVariant
-			//{
-				
-			//	quantity = product.quantity,
-			//	size = product.size,
-			//	color = product.color,
-			//	length = product.length,
-			//	price = product.price,
-			//	product = 
+			foreach(var prouctVariant in productDto.ProductVariants)
+			{
+                ProductVariant productVariants = new ProductVariant
+                {
+                    quantity = prouctVariant.Quantity,
+                    size = prouctVariant.Size,
+                    color = prouctVariant.Color,
+                    length = prouctVariant.Length,
+                    price = productDto.Price,
+                    product = product,
+					created_at = DateTime.Now,
+					created_by = 1,
+                };
 
-			//};
-			
-			
-            String[] values = new String[] { "AYU", "TEST" };
+				_context.product_variants.Add(productVariants);
+            }
 
-            return Ok(new ApiResponseWrapper("", values));
+			_context.SaveChanges();
+
+            var productStored = _context.products.Where(p => p.id == product.id).ToList();
+
+            return Ok(new ApiResponseWrapper("", productStored.ToArray()));
+        }
+
+        [HttpPatch("PatchProduct")]
+        public IActionResult PatchProduct([FromBody] StoreProductDto productDto)
+        {
+            ProductCategories? product_category = _context.product_categories.Find(productDto.ProductCategoryId);
+            
+			if (product_category != null)
+			{
+                Products? updateProduct = _context.products.Where(product => product.id == productDto.id).FirstOrDefault();
+				updateProduct.product_category = product_category;
+				updateProduct.name = productDto.Name;
+				updateProduct.desc = productDto.Description;
+				updateProduct.url = "need to change this";
+				updateProduct.sizing_type = productDto.SizingType;
+				updateProduct.moodified_at = DateTime.Now;
+				updateProduct.modified_by = 1;
+				_context.SaveChanges();
+
+                foreach (var prouctVariant in productDto.ProductVariants)
+				{
+					if(prouctVariant.ProductVariantId != null)
+					{
+						ProductVariant updateProductVariant = _context.product_variants.Find(prouctVariant.ProductVariantId);
+						updateProductVariant.quantity = prouctVariant.Quantity;
+						updateProductVariant.size = prouctVariant.Size;
+						updateProductVariant.price = productDto.Price;
+						updateProductVariant.color = prouctVariant.Color;
+						updateProductVariant.length = prouctVariant.Length;
+						updateProductVariant.moodified_at = DateTime.Now;
+						updateProductVariant.modified_by = 1;
+                        updateProductVariant.deleted_by = 1;
+						_context.SaveChanges();
+					}
+					else
+					{
+                        ProductVariant storeProductVariant = new ProductVariant
+                        {
+                            quantity = prouctVariant.Quantity,
+                            size = prouctVariant.Size,
+                            color = prouctVariant.Color,
+                            length = prouctVariant.Length,
+                            price = productDto.Price,
+                            product = updateProduct,
+                            created_at = DateTime.Now,
+                            created_by = 1,
+                        };
+
+                        _context.product_variants.Add(storeProductVariant);
+                    }
+				}
+
+				_context.SaveChanges();
+
+				var productUpdated = _context.products.Where(p => p.id == updateProduct.id).ToList();
+
+				return Ok(new ApiResponseWrapper("", productUpdated.ToArray()));
+            }
+			else
+			{
+                return NotFound(new ApiResponseWrapper("Product category not found!", null));
+            }
         }
 
 
         [HttpGet("{id}", Name = "getProduct")]
         public IActionResult getProduct(int id)
         {
-			var product = _context.products.Where(product => product.id == id).ToList();
+            var product = _context.products.Where(product => product.id == id).Include(products => products.product_category).
+				Include(products => products.product_variants).ToList();
 
 			if (product.Count > 0)
 			{
@@ -160,7 +214,7 @@ namespace webapi.Controllers
         [HttpGet("GetProductById/{id}")]
 		public IActionResult getProductById(int id)
 		{
-			var prod = (from prod_variant in _context.product_variants where prod_variant.id == id
+			var prod = (from prod_variant in _context.product_variants where prod_variant.product.id == id
 							join product in _context.products on prod_variant.product.id equals product.id
 						select new
 							{
@@ -238,6 +292,22 @@ namespace webapi.Controllers
 			{
 				return NotFound(new ApiResponseWrapper("Product not found!", variation.ToArray()));
 			}
+		}
+
+		[HttpPut("DeleteItem/{id}")]
+		public IActionResult DeleteItem(int id)
+		{
+			var productList = _context.products.Find(id);
+
+            if (productList == null)
+            {
+                return NotFound();
+            }
+
+			productList.deleted_at = DateTime.UtcNow;
+			_context.SaveChanges();
+
+			return NoContent();
 		}
     
 		[HttpGet("AddMockItem")]

@@ -22,4 +22,25 @@ namespace webapi.Models
         public DateTime created_at { get; set; }
         public int created_by { get; set; }
     }
+
+    public class StoreProductDto
+    {
+        public int id { get; set; }
+        public String Name { get; set; }
+        public String Description { get; set; }
+        public double Price { get; set; }
+        public int ProductCategoryId { get; set; }
+        public String SizingType { get; set; }
+        public List<ProductVariantDto> ProductVariants { get; set; }
+    }
+
+    public class ProductVariantDto
+    {
+        public int ProductVariantId{ get; set; }
+        public String Color { get; set; }
+        public String? Length { get; set; }
+        public String? Size { get; set; }
+        public int Quantity { get; set; }
+    }
+
 }
