@@ -27,7 +27,7 @@
                 <div class="card h-100">
                     <!-- Product image-->
                     <div class="card-banner img-holder" style="--width: 360; height: 245.5px;">
-                      <img style="cursor: pointer; background-color: white;" [routerLink]="['/products', product.id]" class="card-img-top" [src]="product.url" alt="..." />
+                      <img style="cursor: pointer; background-color: white;" [routerLink]="['/products', product.id]" class="card-img-top" [src]="'https://localhost:7056/api/images/' + product.url" alt="..." />
                     </div>
                     <!-- Product details-->
                     <div class="card-body p-4">
@@ -52,4 +52,3 @@
         </app-pagination>
     </div>
   </section>
-  
