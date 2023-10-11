@@ -9,21 +9,21 @@
             return items[_rand.Next(items.Count)];
         }
 
-        internal static string MakeUniqueCustomerName(List<string> names)
+        internal static string MakeUniqueUserName(List<string> names)
         {
-            var maxNames = bizPrefix.Count * bizSuffix.Count;
+            var maxNames = firstName.Count * lastName.Count;
 
             if (names.Count >= maxNames)
                 throw new System.InvalidOperationException("Maximum number of unique names exceeded");
             
-            var prefix = GetRandom(bizPrefix);
-            var suffix = GetRandom(bizSuffix);
-            var bizName = prefix + suffix;
+            var prefix = GetRandom(firstName);
+            var suffix = GetRandom(lastName);
+            var name = prefix + "_" + suffix;
 
-            if (names.Contains(bizName))
-                MakeUniqueCustomerName(names);
+            if (names.Contains(name))
+                MakeUniqueUserName(names);
             
-            return bizName;
+            return name;
         }
 
         internal static string MakeCustomerEmail(string customerName)
@@ -31,12 +31,61 @@
             return $"contact@{customerName.ToLower()}.com";
         }
 
+        internal static string GenerateRandomPassword(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+            Random random = new Random();
+
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        internal static string GenerateRandomMobileNumber()
+        {
+            Random random = new Random();
+
+            // Generate random country code (e.g., +1 for USA)
+            int countryCode = random.Next(1, 100);
+
+            // Generate random mobile prefix (3 digits)
+            int mobilePrefix = random.Next(100, 1000);
+
+            // Generate random mobile number (7 digits)
+            int mobileNumber = random.Next(1000000, 10000000);
+
+            // Format and return the mobile number
+            return $"+{countryCode}-{mobilePrefix}-{mobileNumber}";
+        }
+
+        internal static string GenerateRandomTelephoneNumber()
+        {
+            Random random = new Random();
+
+            // Generate random area code (3 digits)
+            int areaCode = random.Next(100, 1000);
+
+            // Generate random first part (3 digits)
+            int firstPart = random.Next(100, 1000);
+
+            // Generate random second part (4 digits)
+            int secondPart = random.Next(1000, 10000);
+
+            // Format and return the telephone number
+            return $"{areaCode}-{firstPart}-{secondPart}";
+        }
+
         internal static string GetRandomState()
         {
             return GetRandom(usStates);
         }
 
-        internal static decimal GetRandomOrderTotal()
+        internal static int GenerateRandomPaymentId()
+        {
+            Random random = new Random();
+            return random.Next(1000, 10000); // Generates a random integer between 1000 and 9999
+        }
+
+        internal static float GetRandomOrderTotal()
         {
             return _rand.Next(100, 5000);
         }
@@ -44,7 +93,7 @@
         internal static DateTime GetRandomOrderPlaced()
         {
             var end = DateTime.Now;
-            var start = end.AddDays(-90);
+            var start = end.AddDays(-365);
 
             TimeSpan possibleSpan = end - start;
             TimeSpan newSpan = new TimeSpan(0, _rand.Next(0, (int)possibleSpan.TotalMinutes), 0);
@@ -75,36 +124,28 @@
             "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"
         };
 
-        private static readonly List<string> bizPrefix = new List<string>()
+        private static readonly List<string> firstName = new List<string>()
         {
-            "ABC",
-            "XYZ",
-            "MainSt",
-            "Sales",
-            "Enterprise",
-            "Ready",
-            "Quick",
-            "Budget",
-            "Peak",
-            "Magic",
-            "Family",
-            "Confort"
+            "John", 
+            "Jane", 
+            "Michael", 
+            "Emily", 
+            "David", 
+            "Sarah", 
+            "Robert", 
+            "Jessica"
         };
 
-        private static readonly List<string> bizSuffix = new List<string>()
+        private static readonly List<string> lastName = new List<string>()
         {
-            "Corporation",
-            "Co",
-            "Logistics",
-            "Transit",
-            "Bakery",
-            "Goods",
-            "Foods",
-            "Cleaners",
-            "Hotels",
-            "Planners",
-            "Automotive",
-            "Books"
+            "Smith", 
+            "Johnson", 
+            "Brown", 
+            "Lee", 
+            "Taylor", 
+            "Clark", 
+            "Wilson", 
+            "Davis"
         };
     }
 }

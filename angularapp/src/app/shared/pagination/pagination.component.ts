@@ -11,6 +11,7 @@ export class PaginationComponent {
   @Input() perPage!: number;
   @Input() pagesToShow!: number;
   @Input() loading!: boolean;
+  @Input() title!: string;
 
   @Output() goPrev = new EventEmitter<boolean>();
   @Output() goNext = new EventEmitter<boolean>();

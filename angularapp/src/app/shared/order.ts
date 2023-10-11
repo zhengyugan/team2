@@ -1,9 +1,10 @@
-import { Customer } from './customer';
+import { User } from './user';
 
 export interface Order {
   id: number;
-  customer: Customer;
+  users: User;
   total: number;
-  placed: Date;
-  completed: Date;
+  created_at: Date;
+  moodified_at: Date;
+  order_status: string;
 }
