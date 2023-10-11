@@ -16,8 +16,6 @@ export const appRoutes: Routes = [
   { path: 'orders', component: SectionOrdersComponent },
   { path: 'products', component: ProductListComponent },
   { path: 'cart', component: CartComponent },
-  { path: '', redirectTo: 'products', pathMatch: 'full' },
-  { path: '**', redirectTo: 'products', pathMatch: 'full' },
   {
     path: 'products/:id',
     canActivate: [ProductDetailGuard],
