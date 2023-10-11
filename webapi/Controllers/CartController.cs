@@ -86,21 +86,14 @@ namespace webapi.Controllers
             return NoContent();
         }
 
-        [HttpPut("{id}/create-order")]
+        [HttpPost("create-order/{userid}")]
         public IActionResult CreateOrder(int userid, [FromBody] OrderUpdateModel orderUpdate)
         {
             var userList = _context.users.ToList();
-            //var cartItem = _context.carts.Find(c => c.user.id = userid);
-            //var cartList = _context.carts.Find(id);
+
             // Create a new order
             var newOrder = new Orders
             {
-                //total = (float)orderUpdate.Total,
-                //payment_status = "Completed",
-                //order_status = "In progress",
-                //modified_at = DateTime.UtcNow,
-                //modified_by = orderUpdate.ModifiedBy
-
                 users = userList.First(c => c.id == userid),
                 total = (float)orderUpdate.Total,
                 payment_status = "Completed",
@@ -112,6 +105,12 @@ namespace webapi.Controllers
             // Add the new order to the context
             _context.orders.Add(newOrder);
             //cartItem.moodified_at = DateTime.UtcNow;
+
+            var cartsToUpdate = _context.carts.Where(cart => cart.user.id == userid && cart.moodified_at == null);
+            foreach (var cart in cartsToUpdate)
+            {
+                cart.moodified_at = DateTime.UtcNow;
+            }
 
             // Save changes to the database
             _context.SaveChanges();

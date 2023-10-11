@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { ICart } from "./cart";
 import { Observable, catchError, map, tap, throwError } from "rxjs";
 import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
-import { constant } from 'lodash';
 import { __param } from 'tslib';
+import { OrderUpdateModel } from '../shared/order-update';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +28,10 @@ export class CartService {
   public delete(id: number) {
     const __param = new HttpParams({});
     return this.http.put(this.baseUrl + 'api/Cart/' + id, __param).pipe(map((res: any) => res || []));
+  }
+
+  public createOrder(userid: number, orderUpdate: OrderUpdateModel) {
+    return this.http.put(this.baseUrl + 'api/Cart/create-order/' + userid, orderUpdate).pipe(map((res: any) => res || []));
   }
 
   private handleError(err: HttpErrorResponse) {

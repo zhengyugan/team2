@@ -5,6 +5,7 @@ import { CartService } from './cart.service';
 import { ICart } from './cart';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { OrderUpdateModel } from '../shared/order-update';
 import { Carts } from '../shared/cart';
 
 @Component({
@@ -16,6 +17,9 @@ export class CartComponent implements OnInit, OnDestroy {
   imageWidth: number = 50;
   imageMargin: number = 2;
   sub!: Subscription;
+  sub1!: Subscription;
+  sub2!: Subscription;
+  sub3!: Subscription;
   userId: number = 3;
   cart: ICart[] = [];
   total: number = 0;
@@ -30,6 +34,12 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(private cartService: CartService, private modalService: NgbModal) { }
 
   open() {
+    var orderUpdate:OrderUpdateModel = {
+      "total": this.total,
+      "modifiedby": this.userId
+    }
+
+    this.createOrder(this.userId, orderUpdate);
     const modalRef = this.modalService.open(NgbdModalContent);
     modalRef.componentInstance.customMessage = 'Payment Completed!';
   }
@@ -67,7 +77,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   onDelete(id: number) {
-    this.sub = this.cartService.delete(id).subscribe({
+    this.sub1 = this.cartService.delete(id).subscribe({
       next: cart => {
         this.cart = cart['Data'];
       },
@@ -75,13 +85,19 @@ export class CartComponent implements OnInit, OnDestroy {
     location.reload();
   }
 
+  createOrder(userid: number, orderUpdate: OrderUpdateModel) {
+    console.log(userid, orderUpdate);
+    this.sub2 = this.cartService.createOrder(userid, orderUpdate).subscribe({
+      next: cart => {
+        console.log(789);
+        this.cart = cart['Data'];
+      },
+    });
+  }
+
   calculateTotal() {
     console.log(123);
     console.log(this.cart);
-    //old
-    //for (let i = 0; i < this.cart.length; i++) {
-    //  console.log(this.cart[i]);
-    //}
 
     this.total = this.cart.reduce((acc, product) => {
       // Check if product is not deleted and not modified
@@ -94,10 +110,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   getFormControlsFields(cart: ICart []) {
-    //console.log(123);
     const formGroupFields = {};
-    //console.log(456);
-    //console.log(cart);
     cart.forEach(item => {
 
       console.log(item)
@@ -107,7 +120,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.sub3.unsubscribe();
   }
 }
 
@@ -120,8 +133,6 @@ export class NgbdModalContent {
   constructor(public activeModal: NgbActiveModal, private router: Router) { }
 
   onClose() {
-    // Redirect to the product page
-    console.log(789);
     this.router.navigate(['./products']);
     this.activeModal.close();
   }
