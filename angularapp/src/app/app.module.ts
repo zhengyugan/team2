@@ -29,6 +29,7 @@ import { DateYearPickerComponent } from './admin/report/date-pickers/date-year-p
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { SharedModule } from './shared/shared.module';
+import { NgToastModule } from 'ng-angular-popup';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CartModule } from './cart/cart.module';
 
@@ -68,7 +69,8 @@ import { CartModule } from './cart/cart.module';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    FormsModule
+    FormsModule,
+    NgToastModule
   ],
   exports: [
     SharedModule,

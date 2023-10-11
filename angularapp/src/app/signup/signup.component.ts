@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import ValidateForm from '../helpers/validateform';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'pm-signup',
@@ -15,7 +16,7 @@ export class SignupComponent {
   eyeIcon: string = "fa-eye-slash";
   signUpForm!: FormGroup;
 
-constructor(private fb : FormBuilder, private auth: AuthService, private router: Router){}
+constructor(private fb : FormBuilder, private auth: AuthService, private router: Router, private toast: NgToastService){}
 
 ngOnInit(): void{
   this.signUpForm = this.fb.group({
@@ -41,7 +42,8 @@ ngOnInit(): void{
       this.auth.signUp(this.signUpForm.value)
       .subscribe({
         next:(res)=>{
-          alert(res.message)
+          // alert(res.message)
+          this.toast.success({detail:"SUCCESS", summary:res.message, duration: 5000});
           this.signUpForm.reset();
           this.router.navigate(['login']);
         },
@@ -51,7 +53,9 @@ ngOnInit(): void{
       })
     }else{
       ValidateForm.validateInput(this.signUpForm);
-      alert("Your form is invalid")
+      // alert()
+      this.toast.error({detail:"ERROR", summary:"Your form is invalid", duration: 5000})
+
     }
   }
 }
