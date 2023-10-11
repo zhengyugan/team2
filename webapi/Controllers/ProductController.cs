@@ -1,12 +1,6 @@
-using System.Collections.Immutable;
-using System.Dynamic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Any;
-using webapi.Migrations;
-using Microsoft.EntityFrameworkCore;
 using webapi.Models;
-using Newtonsoft.Json;
 
 namespace webapi.Controllers
 {
@@ -72,7 +66,7 @@ namespace webapi.Controllers
 							product.name,
 							product.desc,
 							product.url
-						}).Take(distinctVal.Length).ToList();
+						}).GroupBy(obj=>obj.id).Select(group=>group.First()).ToList();
 			
 			
 			var Data = products.Skip((pageIndex-1)*pageSize).Take(pageSize).ToList();
