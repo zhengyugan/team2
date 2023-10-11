@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   private baseUrl:string = "https://localhost:44308/api/Users/"
-  constructor(private http : HttpClient, private router: Router) { }
+  constructor(private http : HttpClient, private router: Router) {
+   }
 
   signUp(userObj:any){
     return this.http.post<any>(`${this.baseUrl}register`,userObj);
@@ -33,6 +34,14 @@ export class AuthService {
 
   isLoggedIn(): boolean{
     return !!localStorage.getItem('token')
+  }
+
+  storeRole(roleValue: string){
+    localStorage.setItem('role', roleValue)
+  }
+
+  getRole(){
+    return localStorage.getItem('role')
   }
   
 }

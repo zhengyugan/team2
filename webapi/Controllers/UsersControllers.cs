@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using webapi.Models;
@@ -33,6 +34,7 @@ namespace webapi.Controllers
 				
 			return Ok(new 
 			{
+				role = users.role,
 				login = users.login,
 				message = "Login Success!!!"
 			});	
@@ -55,6 +57,7 @@ namespace webapi.Controllers
 			});
 		}
 
+		[Authorize]
 		[HttpGet]
 		public async Task<ActionResult<Users>> GetAllUsers()
 		{

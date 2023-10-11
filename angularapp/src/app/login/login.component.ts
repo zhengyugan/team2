@@ -39,6 +39,8 @@ export class LoginComponent {
           // alert(res.message);
           this.loginForm.reset();
           this.auth.storeToken(res.login)
+          this.auth.storeRole(res.role)
+          console.log(res.role);
           this.toast.success({detail:"SUCCESS", summary:res.message, duration: 5000});
           this.router.navigate(['products'])
         },
