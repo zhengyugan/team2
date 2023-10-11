@@ -1,4 +1,4 @@
-export interface OrderUpdateModel {
+export interface OrderUpdateModel{
     total: number;
     modifiedby: number;
   }
