@@ -19,5 +19,9 @@ export class HeaderComponent {
   logout(){
     this.auth.signOut()
   }
+
+  roleCheck(){
+    return localStorage.getItem('role');
+  }
 }
 

@@ -34,5 +34,13 @@ export class AuthService {
   isLoggedIn(): boolean{
     return !!localStorage.getItem('token')
   }
+
+  storeRole(roleValue: string){
+    localStorage.setItem('role', roleValue)
+  }
+
+  getRole(){
+    return localStorage.getItem('role')
+  }
   
 }

@@ -6,22 +6,16 @@
         <li class="navbar-item">
           <a routerLink="/products" class="navbar-link fw-semibold" data-nav-link>Products</a>
         </li>
-        <li class="navbar-item">
+        <li *ngIf="roleCheck()=== 'admin'" class="navbar-item">
           <a routerLink="/dashboard" class="navbar-link fw-semibold" data-nav-link>Dashboard</a>
         </li>
-        <li class="navbar-item">
+        <li *ngIf="loggedin()" class="navbar-item">
           <a routerLink="/cart" class="navbar-link fw-semibold" data-nav-link>Cart</a>
         </li>
       </ul>
 
     </nav>
     <div class="header-actions">
-      <div>
-        <button *ngIf="loggedin()" class="action-btn" >
-          <span class="fs-3"><fa-icon icon="shopping-cart"routerLink="/cart" style="color:#DC4600"></fa-icon></span>
-          <span class="btn-badge">0</span>
-        </button>
-      </div>
         <button *ngIf="!loggedin()" class="action-btn">
           <span class="fs-4">
             <a routerLink="/login">
