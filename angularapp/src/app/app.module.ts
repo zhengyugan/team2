@@ -8,13 +8,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
-
-import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartShopping, faUser, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-
 import { AppComponent, NgbdModalContent } from './app.component';
 import { NgChartsModule } from 'ng2-charts';
-
 import { appRoutes } from '../routes';
 import { ProductModule } from './user/product/product.module';
 import { AdminProductModule } from './admin/product/product.module';
@@ -33,8 +29,12 @@ import { DateYearPickerComponent } from './admin/report/date-pickers/date-year-p
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { SharedModule } from './shared/shared.module';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CartModule } from './cart/cart.module';
+
 
 @NgModule({
+
   declarations: [
     AppComponent,
     SignupComponent,
@@ -52,6 +52,7 @@ import { SharedModule } from './shared/shared.module';
     DateYearPickerComponent,
     NgbdModalContent
   ],
+
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -72,9 +73,11 @@ import { SharedModule } from './shared/shared.module';
   exports: [
     SharedModule,
     FontAwesomeModule,
+    CartModule,
     ReactiveFormsModule,
     FormsModule
   ],
+
   providers: [
     SalesDataService,
     FontAwesomeModule
@@ -84,6 +87,7 @@ import { SharedModule } from './shared/shared.module';
     NgbdModalContent
   ]
 })
+
 export class AppModule {
   constructor(library: FaIconLibrary) {
     library.addIcons(

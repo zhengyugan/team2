@@ -351,7 +351,6 @@ namespace webapi
                 {
                     users = users.First(user => user.id == randUserId),
                     total = Helpers.GetRandomOrderTotal(),
-                    payment_id = Helpers.GenerateRandomPaymentId(),
                     payment_status = completed != null ? "completed" : "pending",
                     order_status = completed != null ? "completed" : "pending",
                     moodified_at = completed,

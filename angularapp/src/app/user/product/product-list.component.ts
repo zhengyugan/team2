@@ -41,11 +41,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
   
   getAllProducts(){
-    this.sub = this.productService.getAllProducts().subscribe({
-      next: products => {
-        this.products = products['Data'];
+    this.sub = this.productService.getAllProducts(this.page,this.limit).subscribe({
+      next: prod => {
+        this.products = prod['product'];
         this.filteredProducts = this.products;
-        this.total = this.products.length;
+        this.total = prod['productTotal'];
       },
     });
   }
