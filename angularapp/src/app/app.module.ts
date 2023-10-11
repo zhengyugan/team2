@@ -72,7 +72,7 @@ import { CartModule } from './cart/cart.module';
   exports: [
     SharedModule,
     FontAwesomeModule,
-    CartModule
+    CartModule,
     ReactiveFormsModule,
     FormsModule
   ],
