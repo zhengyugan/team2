@@ -53,10 +53,10 @@ namespace webapi.Controllers
 
 			var details = new ProblemDetails();
 
-			var products = (from prod_variant in _context.product_variants
-						join product in _context.products on prod_variant.product.id equals product.id
-						select new
-						{
+			var products = (from prod_variant in _context.product_variants 
+							join product in _context.products on prod_variant.product.id equals product.id
+							select new
+							{
 							product.id,
 							prod_variant.quantity,
 							prod_variant.size,
@@ -65,7 +65,8 @@ namespace webapi.Controllers
 							prod_variant.price,
 							product.name,
 							product.desc,
-							product.url
+							product.url,
+							product.deleted_at
 						}).GroupBy(obj=>obj.id).Select(group=>group.First()).ToList();
 			
 			
@@ -160,7 +161,7 @@ namespace webapi.Controllers
         [HttpGet("GetProductById/{id}")]
 		public IActionResult getProductById(int id)
 		{
-			var prod = (from prod_variant in _context.product_variants where prod_variant.id == id
+			var prod = (from prod_variant in _context.product_variants where prod_variant.product.id == id
 							join product in _context.products on prod_variant.product.id equals product.id
 						select new
 							{
@@ -238,8 +239,23 @@ namespace webapi.Controllers
 			{
 				return NotFound(new ApiResponseWrapper("Product not found!", variation.ToArray()));
 			}
-			
+		}
 
+
+		[HttpPut("DeleteItem/{id}")]
+		public IActionResult DeleteItem(int id)
+		{
+			var productList = _context.products.Find(id);
+
+            if (productList == null)
+            {
+                return NotFound();
+            }
+
+			productList.deleted_at = DateTime.UtcNow;
+			_context.SaveChanges();
+
+			return NoContent();
 		}
 
 		[HttpGet("AddMockItem")]

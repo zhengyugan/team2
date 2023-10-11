@@ -43,6 +43,7 @@ export class AdminProductListComponent implements OnInit, OnDestroy {
     this.sub = this.productService.getProducts().subscribe({
       next: response => {
         this.products = response;
+        console.log(this.products);
         this.products = this.products.Data;
         this.filteredProducts = this.products;
       },
@@ -50,11 +51,17 @@ export class AdminProductListComponent implements OnInit, OnDestroy {
     });
   }
 
+  onDelete(productId: number){
+    this.sub = this.productService.deleteProduct(productId).subscribe({
+      next: res => {
+        console.log(res);
+      },
+    });
+    location.reload();
+  }
+
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
 
-  onRatingClicked(message: string): void {
-    this.pageTitle = "Product List: " + message;
-  }
 }
