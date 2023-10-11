@@ -49,7 +49,7 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var seed = services.GetRequiredService<IDataSeed>();
-        seed.SeedData(100, 5000);
+        seed.SeedData(20, 50000);
     }
     catch (Exception ex)
     {

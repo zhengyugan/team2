@@ -3,9 +3,10 @@
   <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
 <div class="modal-body">
-  <p>The request has been done successfully!</p>
+  <p>{{ customMessage }}</p>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Close</button>
+  <!--<button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Close</button>-->
+  <button type="button" class="btn btn-primary" (click)="onClose()">Close</button>
 </div>
 

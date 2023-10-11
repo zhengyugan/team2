@@ -414,7 +414,13 @@ namespace webapi.Migrations
                     b.Property<string>("first_name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool?>("isloggedin")
+                        .HasColumnType("bit");
+
                     b.Property<string>("last_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("login")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("mobile")

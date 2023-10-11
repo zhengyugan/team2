@@ -1,11 +1,9 @@
 <div class="card m-4">
     <div class="card-header">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
       <div class="row">
         <div class="col">
           <div class="d-flex justify-content-between">
-            <div>
-              {{pageTitle}}
-            </div>
             <div class="d-flex" >
                 <div style="margin-right: 10px;">Filter :</div>
                 <div>
@@ -25,10 +23,10 @@
           <thead>
             <tr>
               <th></th>
-              <th>Product</th>
+              <th>Product</th> 
               <th>Category</th>
               <th>Price</th>
-              <th>5 Star Rating</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -41,9 +39,7 @@
               </td>
               <td>{{ product.product_category.name }}</td>
               <td>{{ product.product_variants[0]?.price || '0' | currency:"RM ":"symbol":"1.2-2"}}</td>
-              <td>
-                <pm-star [rating]="product.starRating" (ratingClicked)="onRatingClicked($event)"></pm-star>
-              </td>
+              <td><button mat-button color="primary" type="button" class="bi bi-trash orange-color" (click)="onDelete(product.id)"></button></td>
             </tr>
           </tbody>
         </table>

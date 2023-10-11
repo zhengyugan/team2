@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse, HttpEvent, HttpRequest } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpParams, HttpRequest } from "@angular/common/http";
 import { Observable, catchError, map, tap, throwError } from "rxjs";
 
 import { IProduct } from "./product";
@@ -28,6 +28,11 @@ export class ProductService {
     return this.http.get(this.url+'api/Product/GetAllProducts').subscribe(data=>{
       this.products = JSON.stringify(data);
     })
+  }
+
+  public deleteProduct(id:number){
+    const __param = new HttpParams({});
+    return this.http.put(this.url + 'api/Product/DeleteItem/' + id, __param).pipe(map((res: any) => res || []));
   }
 
   upload(file: File): Observable<HttpEvent<any>> {

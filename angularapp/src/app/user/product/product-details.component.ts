@@ -19,15 +19,16 @@ export class ProductDetailsComponent {
   productId: any;
   variantId: any;
   colourList: string[] = [];
-  sizeList:string[] = [];
+  typeList:string[] = [];
   variantList:Variant[] =[];
   hasError:boolean = false;
   errorMessage:string ="";
   isButtonDisabled = false;
+  showMyMessage = false;
 
   form = new FormGroup({  
     colour: new FormControl('', Validators.required),
-    size: new FormControl('', Validators.required),
+    type: new FormControl('', Validators.required),
     quantity: new FormControl('', Validators.required) 
   });  
 
@@ -50,7 +51,7 @@ export class ProductDetailsComponent {
 
   getProductVariant(){
     var _colourList:string[]=[];
-    var _sizeList:string[]=[];
+    var _typeList:string[]=[];
     this.sub = this.productService.getProductVariantById(this.productId).subscribe({
       next: variant => {
         this.variantList=variant['Data'];
@@ -59,12 +60,19 @@ export class ProductDetailsComponent {
             _colourList.push(variant.color);
           }
 
-          if(!_sizeList.includes(variant.size) && variant.quantity>0){
-            _sizeList.push(variant.size);
+          if(variant.size != null && variant.size != ""){
+            if(!_typeList.includes(variant.size) && variant.quantity>0){
+              _typeList.push(variant.size);
+              }
+          }else{
+            if(!_typeList.includes(variant.length) && variant.quantity>0){
+              _typeList.push(variant.length);
+             }
           }
         }); 
+
         this.colourList = _colourList.sort();
-        this.sizeList = _sizeList.sort();
+        this.typeList = _typeList.sort();
       },
     });
     
@@ -97,7 +105,7 @@ export class ProductDetailsComponent {
     {
       this.router.navigate(['/cart']);
     }else{
-      // add Dialog
+      this.showMessage();
     }
     
   }
@@ -111,10 +119,10 @@ export class ProductDetailsComponent {
     return carts;
   }
 
-  mapProductVariantId(size:any,color:any){
+  mapProductVariantId(type:any,color:any){
     var productVariantId =-1;
     this.variantList.forEach(function (variant){
-      if(variant.size == size && variant.color == color){
+      if((variant.size == type || variant.length==type) && variant.color == color){
         productVariantId = variant.id;
       }
     })
@@ -130,17 +138,24 @@ export class ProductDetailsComponent {
       this.hasError=true;
     }
 
-    if(this.form.controls['size'].invalid){
+    if(this.form.controls['type'].invalid){
       this.errorMessage="Please select size variation";
       this.hasError=true;
     }
 
-    this.variantId = this.mapProductVariantId(this.form.controls['size'].value,this.form.controls['colour'].value);
+    this.variantId = this.mapProductVariantId(this.form.controls['type'].value,this.form.controls['colour'].value);
 
     if(this.variantId ==-1 ){
       this.errorMessage="There is unexpexted error occurs. Please try again later";
       this.hasError=true;
     }
+  }
+
+  showMessage(){
+    this.showMyMessage = true
+    setTimeout(() => {
+      this.showMyMessage = false
+    }, 2000)
   }
 
 }

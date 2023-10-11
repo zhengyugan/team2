@@ -1,0 +1,11 @@
+thead {
+  color: #337AB7;
+}
+
+.orange-color {
+  color: orange;
+}
+
+.mat-button.mat-primary .btn btn-primary {
+  background-color: transparent;
+}
