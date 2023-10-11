@@ -1,0 +1,52 @@
+<div class="card m-4">
+    <div class="card-header">
+      <div class="row">
+        <div class="col">
+          <div class="d-flex justify-content-between">
+            <div>
+              {{pageTitle}}
+            </div>
+            <div class="d-flex" >
+                <div style="margin-right: 10px;">Filter :</div>
+                <div>
+                    <input type="text" [(ngModel)]="listFilter" />
+                </div>
+            </div>
+            <button class="btn btn-primary" routerLink="/admin/product/create">
+              Add Product
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table" *ngIf="products.length">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>5 Star Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of filteredProducts" [routerLink]="['/admin/product', product.productId]" class="hover-overlay">
+              <td>
+                <img *ngIf="showImage" [src]="product.url" [title]="product.name" [style.width.px]="imageWidth" [style.margin.px]="imageMargin" />
+              </td>
+              <td>
+                {{product.name}}
+              </td>
+              <td>{{ product.product_category.name }}</td>
+              <td>{{ product.product_variants[0]?.price || '0' | currency:"RM ":"symbol":"1.2-2"}}</td>
+              <td>
+                <pm-star [rating]="product.starRating" (ratingClicked)="onRatingClicked($event)"></pm-star>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

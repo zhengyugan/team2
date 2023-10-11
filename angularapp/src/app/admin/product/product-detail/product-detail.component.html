@@ -1,0 +1,71 @@
+<div class="card m-4">
+    <div class="card-header">
+      {{pageTitle + ': ' + product?.productName}}
+    </div>
+    <div class="card-body mb-5">
+      <form>
+        <div class="row">
+          <div class="form-group mb-4 col-6">
+            <label for="exampleInputEmail1" class="mb-2">Name</label>
+            <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Product Name">
+          </div>
+          <div class="form-group mb-3 col-6">
+            <label for="validationDefaultUsername" class="mb-2">Price</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend2">RM</span>
+              </div>
+              <input type="number" class="form-control" id="validationDefaultUsername" aria-describedby="inputGroupPrepend2" required>
+            </div>
+          </div>
+          <div class="form-group mb-4 col-6">
+            <label for="exampleFormControlTextarea1" class="mb-2">Description</label>
+            <textarea class="form-control" rows="3" placeholder="Product Description"></textarea>
+          </div>
+          
+          <div class="form-group mb-4 col-6">
+            <label for="exampleFormControlSelect1" class="mb-2">Product Category</label>
+            <select class="form-select" >
+              <option></option>
+              <option>Category A</option>
+              <option>Category B</option>
+            </select>
+          </div>
+          
+          <div class="form-group mb-3 col-6">
+            <label for="exampleInputEmail1" class="mb-2">Color</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Product Color">
+          </div>
+          <div class="form-group mb-3 col-6">
+            <label for="exampleFormControlSelect1" class="mb-2">Size</label>
+            <select class="form-select" >
+              <option></option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+            </select>
+          </div>
+          <div class="form-group mb-3 col-6">
+            <label for="validationUsername" class="mb-2">Length</label>
+            <div class="input-group">
+              <input type="number" class="form-control" id="validationUsername" aria-describedby="inputGroupPrependLength" required>
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrependLength">CM</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group mb-4 col-6">
+            <label for="" class="mb-2">Image Upload</label>
+            <pm-file-upload></pm-file-upload>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card-footer d-flex justify-content-between">
+      <button class="btn btn-primary" (click)="onBack()">
+        <i class="fa fa-chevron-left"></i> Back
+      </button>
+      <button type="submit" class="btn btn-primary align-self-end">Submit</button>
+    </div>
+  </div>
+  

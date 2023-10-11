@@ -17,6 +17,7 @@ import { NgChartsModule } from 'ng2-charts';
 
 import { appRoutes } from '../routes';
 import { ProductModule } from './user/product/product.module';
+import { AdminProductModule } from './admin/product/product.module';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SectionSalesComponent } from './admin/report/sections/section-sales/section-sales.component';
@@ -31,7 +32,6 @@ import { DateYearPickerComponent } from './admin/report/date-pickers/date-year-p
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { SharedModule } from './shared/shared.module';
-
 
 @NgModule({
   declarations: [
@@ -57,6 +57,7 @@ import { SharedModule } from './shared/shared.module';
     FontAwesomeModule,
     RouterModule.forRoot(appRoutes),
     ProductModule,
+    AdminProductModule,
     NgChartsModule,
     ReactiveFormsModule,
     SharedModule,
@@ -67,7 +68,10 @@ import { SharedModule } from './shared/shared.module';
     FormsModule
   ],
   exports: [
-    SharedModule
+    SharedModule,
+    FontAwesomeModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     SalesDataService,
