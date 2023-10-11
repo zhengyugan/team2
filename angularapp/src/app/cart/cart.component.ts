@@ -74,6 +74,14 @@ export class CartComponent implements OnInit, OnDestroy {
     location.reload();
   }
 
+  createOrder(userid: number) {
+    this.sub = this.cartService.createOrder(userid).subscribe({
+      next: cart => {
+        this.cart = cart['Data'];
+      },
+    });
+  }
+
   calculateTotal() {
     console.log(123);
     console.log(this.cart);

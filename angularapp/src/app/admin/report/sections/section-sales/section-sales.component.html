@@ -1,17 +1,12 @@
 <div class="section-container">
-  <div class="row row-cols-1 row-cols-md-3 g-4">
+  <div class="row row-cols-1 row-cols-md-2 g-4">
     <div class="col">
-      <div class="card mb-3 shadow card-theme">
-        <div class="card-header card-header-theme">
-          <h1>Daily Orders</h1>
-        </div>
-        <div class="card-body">
-          <app-bar-chart></app-bar-chart>
-        </div>
+      <div class="card h-100 mb-3 shadow card-theme">
+        <app-bar-chart></app-bar-chart>
       </div>
     </div>
     <div class="col">
-      <div class="card mb-3 shadow card-theme">
+      <div class="card h-100 mb-3 shadow card-theme">
         <div class="card-header card-header-theme">
           <h1>Orders by Customer</h1>
         </div>
@@ -23,27 +18,29 @@
         </div>
       </div>
     </div>
-    <div class="col">
-      <div class="card mb-3 shadow card-theme">
-        <div class="card-header card-header-theme">
-          <h1>Orders by State</h1>
-        </div>
-        <div class="card-body">
-          <app-pie-chart *ngIf="salesDataByState"
-                         [inputData]="salesDataByState"
-                         [limit]="5">
-          </app-pie-chart>
-        </div>
+  </div>
+  <br />
+  <div class="row-fluid cards">
+    <div class="card shadow card-theme card-bottom">
+      <div class="card-header card-header-theme">
+        <h1>Latest Orders</h1>
+      </div>
+      <div class="card-body">
+        <app-section-orders></app-section-orders>
       </div>
     </div>
   </div>
+</div>
+<div>
+  <br />
   <div class="row-fluid cards">
-    <div class="card-s shadow card-theme card-bottom">
+    <div class="card shadow card-theme card-bottom">
       <div class="card-header card-header-theme">
-        <h1>Monthly Sales by Product</h1>
+        <h1>Inventory Tracking</h1>
+        <h5>Quantity Equal or Less than 10</h5>
       </div>
       <div class="card-body">
-        <app-line-chart></app-line-chart>
+        <app-section-inventory></app-section-inventory>
       </div>
     </div>
   </div>
