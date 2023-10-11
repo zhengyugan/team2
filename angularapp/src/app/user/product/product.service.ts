@@ -16,15 +16,8 @@ export class ProductService {
   constructor(private http: HttpClient) { }
   products:any =[];
 
-  getProducts(): Observable<IProduct[]> {
-    return this.http.get<IProduct[]>(this.productUrl).pipe(
-      tap(data => console.log('All', JSON.stringify(data))),
-      catchError(this.handleError)
-    );
-  }
-
-  public getAllProducts(){
-    return this.http.get(this.url + '/api/Product/GetAllProducts' ).pipe(map((res: any) => res || []));
+  public getAllProducts(pageIndex: number, pageSize: number){
+    return this.http.get(this.url + '/api/Product/GetAllProducts/'+ pageIndex + '/' + pageSize ).pipe(map((res: any) => res || []));
   }
 
   public getProductbyId(id:number){

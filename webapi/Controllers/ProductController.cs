@@ -46,11 +46,13 @@ namespace webapi.Controllers
             return Ok(new ApiResponseWrapper("", products.ToArray()));
         }
 
-		[HttpGet("GetAllProducts")]
-		public IActionResult getAllProducts()
+		[HttpGet("GetAllProducts/{pageIndex:int}/{pageSize:int}")]
+		public IActionResult getAllProducts(int pageIndex, int pageSize)
 		{
 			var distinctVal = _context.product_variants.Select(
 				e=>e.product.id).Distinct().ToArray();
+
+			var details = new ProblemDetails();
 
 			var products = (from prod_variant in _context.product_variants
 						join product in _context.products on prod_variant.product.id equals product.id
@@ -66,15 +68,22 @@ namespace webapi.Controllers
 							product.desc,
 							product.url
 						}).Take(distinctVal.Length).ToList();
+			
+			
+			var Data = products.Skip((pageIndex-1)*pageSize).Take(pageSize).ToList();
+			var Total = products.Count();
 
-			if (products.Count > 0)
-			{
-				return Ok(new ApiResponseWrapper("", products.ToArray()));
-			}
-			else
-			{
-				return NotFound(new ApiResponseWrapper("Products not found!", products.ToArray()));
-			}
+            var totalCount = (int)((products != null && products.Any()) ? (products?.Count()) : 0);
+            var totalPages = Math.Ceiling((double)totalCount / pageSize);
+
+            var response = new
+            {
+                product = Data,
+				productTotal = Total,
+                TotalPages = totalPages
+            };
+
+            return Ok(response);
 
 		}
 
