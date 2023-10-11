@@ -238,10 +238,8 @@ namespace webapi.Controllers
 			{
 				return NotFound(new ApiResponseWrapper("Product not found!", variation.ToArray()));
 			}
-			
-
 		}
-
+    
 		[HttpGet("AddMockItem")]
         public async Task<IActionResult> AddMockItemAsync()
         {
