@@ -67,7 +67,7 @@ namespace webapi.Controllers
 
             var query = Enumerable.Range(0, (end - start).Days + 1)
                 .Select(date => start.AddDays(date))
-                .GroupJoin(_context.orders.Where(order => order.order_status == "Completed"),
+                .GroupJoin(_context.orders.Where(order => order.order_status == "completed"),
                     date_list => date_list.ToShortDateString(),
                     order => order.created_at!.ToShortDateString(),
                     (date_list, order_group) => new

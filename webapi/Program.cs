@@ -38,7 +38,24 @@ else
 builder.Services.AddDbContext<DataContext>(options =>
 	options.UseSqlServer(connection));
 
+builder.Services.AddTransient<IDataSeed, DataSeed>();
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        var seed = services.GetRequiredService<IDataSeed>();
+        seed.SeedData(20, 50000);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.ToString());
+    }
+}
 
 // Enable CORS
 app.UseCors(c => c.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
