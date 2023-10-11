@@ -19,5 +19,7 @@ namespace webapi.Models
 		public int? modified_by { get; set; }
 		public DateTime created_at { get; set; }
 		public int created_by { get; set; }
-	}
+        public Boolean? isloggedin { get; set; }
+        public string? login { get; set; }
+    }
 }
