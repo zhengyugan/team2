@@ -29,8 +29,8 @@
               <th>Delete</th>
             </tr>
           </thead>
-          <tbody *ngFor="let product of filteredProducts" >
-            <tr *ngIf="!product.deleted_at" [routerLink]="['/admin/product', product.productId]" class="hover-overlay">
+          <tbody>
+            <tr *ngFor="let product of filteredProducts" [routerLink]="['/admin/product', product.id]" class="hover-overlay">
               <td>
                 <img *ngIf="showImage" [src]="product.url" [title]="product.name" [style.width.px]="imageWidth" [style.margin.px]="imageMargin" />
               </td>
