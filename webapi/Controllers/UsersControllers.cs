@@ -24,15 +24,19 @@ namespace webapi.Controllers
 			{
 				return BadRequest();
 			}
-			var users = await _context.users.FirstOrDefaultAsync(x => x.email == userObj.email && x.password == userObj.password);
+		    var users = await _context.users.FirstOrDefaultAsync(x => x.email == userObj.email && x.password == userObj.password);
+
 			if (users == null)
-			{
 				return NotFound(new {message = "User Not Found"});
-			}
+			
+			users.login = "Yes";
+				
 			return Ok(new 
 			{
+				login = users.login,
 				message = "Login Success!!!"
 			});	
+			
 		}
 
 		[HttpPost("register")]
@@ -49,6 +53,12 @@ namespace webapi.Controllers
 			{
 				message = "User Registered!"
 			});
+		}
+
+		[HttpGet]
+		public async Task<ActionResult<Users>> GetAllUsers()
+		{
+			return Ok(await _context.users.ToListAsync());
 		}
 	}
 }
