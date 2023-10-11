@@ -24,6 +24,7 @@ export class ProductDetailsComponent {
   hasError:boolean = false;
   errorMessage:string ="";
   isButtonDisabled = false;
+  showMyMessage = false;
 
   form = new FormGroup({  
     colour: new FormControl('', Validators.required),
@@ -105,7 +106,7 @@ export class ProductDetailsComponent {
     {
       this.router.navigate(['/cart']);
     }else{
-      // add Dialog
+      this.showMessage();
     }
     
   }
@@ -149,6 +150,13 @@ export class ProductDetailsComponent {
       this.errorMessage="There is unexpexted error occurs. Please try again later";
       this.hasError=true;
     }
+  }
+
+  showMessage(){
+    this.showMyMessage = true
+    setTimeout(() => {
+      this.showMyMessage = false
+    }, 2000)
   }
 
 }

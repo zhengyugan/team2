@@ -8,7 +8,10 @@
                     <span>{{product.price | currency:"MYR ":"symbol":"1.2-2"}}</span>
                 </div>
                     <p class="lead">{{product.desc}}</p>
-                    <!-- <p class="lead"></p> -->
+                
+                <div class="alert alert-primary" role="alert" *ngIf="showMyMessage">
+                    Product Added to cart
+                </div>
                
                 <form [formGroup]="form" >
                 <!-- Add colour selection"-->
