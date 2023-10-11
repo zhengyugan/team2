@@ -77,10 +77,6 @@ export class CartComponent implements OnInit, OnDestroy {
   calculateTotal() {
     console.log(123);
     console.log(this.cart);
-    //old
-    //for (let i = 0; i < this.cart.length; i++) {
-    //  console.log(this.cart[i]);
-    //}
 
     this.total = this.cart.reduce((acc, product) => {
       // Check if product is not deleted and not modified
