@@ -33,6 +33,7 @@ export class AdminProductDetailComponent implements OnInit {
       price: '',
       productCategoryId: '',
       sizingType: '',
+      url: '',
       productVariants: this.formBuilder.array([]),
     })
   }
@@ -71,7 +72,7 @@ export class AdminProductDetailComponent implements OnInit {
   }
 
   onBack(): void {
-    this.router.navigate(['/admin/products']);
+    this.router.navigate(['/admin/product']);
   }
 
   onItemChange(sizingType: any){
@@ -124,6 +125,10 @@ export class AdminProductDetailComponent implements OnInit {
 
   onSubmit() {
     this.productService.patchProducts( this.updateForm.value);
-    alert("Update SAVE");
+    var r = confirm("saved success");
+    if(r)
+    {
+      this.router.navigate(['/admin/product']);
+    }
   }
 }

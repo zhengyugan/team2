@@ -16,6 +16,7 @@ export class AdminProductCreateComponent implements OnInit{
   hideSizeDiv = true;
 
   createForm: FormGroup;
+  fileToUpload!: File;
 
   constructor(
     private route: ActivatedRoute, 
@@ -30,6 +31,7 @@ export class AdminProductCreateComponent implements OnInit{
       price: '',
       productCategoryId: '',
       sizingType: '',
+      url: File,
       productVariants: this.formBuilder.array([]),
     })
   }
@@ -39,7 +41,7 @@ export class AdminProductCreateComponent implements OnInit{
   }
 
   onBack(): void {
-    this.router.navigate(['/admin/products']);
+    this.router.navigate(['/admin/product']);
   }
 
   onItemChange(sizingType: any){
@@ -96,8 +98,13 @@ export class AdminProductCreateComponent implements OnInit{
 
   onSubmit() {
 
-    this.productService.storeProducts( this.createForm.value);
-    alert("Success SAVE");
+    this.productService.storeProducts( this.createForm.value );
+
+    var r = confirm("saved success");
+    if(r)
+    {
+      this.router.navigate(['/admin/product']);
+    }
 
   }
 
