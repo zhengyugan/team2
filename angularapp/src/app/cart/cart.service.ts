@@ -10,7 +10,7 @@ import { OrderUpdateModel } from '../shared/order-update';
 })
 export class CartService {
   private cartUrl = 'api/cart/cart.json';
-  baseUrl: string = 'https://localhost:7056/';
+  baseUrl: string = 'https://team2webapp001.azurewebsites.net/';
 
   constructor(private http: HttpClient) { }
 

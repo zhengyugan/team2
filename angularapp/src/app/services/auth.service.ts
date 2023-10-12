@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  private baseUrl:string = "https://localhost:7056/api/Users/"
+  private baseUrl: string = "https://team2webapp001.azurewebsites.net/api/Users/"
   constructor(private http : HttpClient, private router: Router) { }
 
   signUp(userObj:any){

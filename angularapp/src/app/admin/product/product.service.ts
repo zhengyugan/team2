@@ -9,7 +9,7 @@ import { IProduct } from "./product";
 })
 export class ProductService {
   private productUrl = 'api/products/products.json';
-  private url='https://localhost:7056/';
+  private url ='https://team2webapp001.azurewebsites.net/';
   title = 'Product';
   
   constructor(private http: HttpClient) { }

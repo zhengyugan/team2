@@ -1,7 +1,7 @@
 const PROXY_CONFIG = [
   {
     context: [],
-    target: "https://localhost:7056",
+    target: "https://team2webapp001.azurewebsites.net",
     secure: false
   }
 ]
