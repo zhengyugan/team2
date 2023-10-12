@@ -52,8 +52,7 @@ export class ProductService {
   }
 
   storeProducts(data: any){
-    return this.http.post(this.url + 'api/Product/StoreProduct', data).subscribe(responsedata=>{
-    });
+    return this.http.post(this.url + 'api/Product/StoreProduct', data).pipe(map((res: any) => res || []));
   }
 
   patchProducts(data: any){

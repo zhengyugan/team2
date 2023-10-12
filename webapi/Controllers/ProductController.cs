@@ -3,17 +3,20 @@ using Microsoft.EntityFrameworkCore;
 using webapi.Models;
 using Newtonsoft.Json;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 
 namespace webapi.Controllers
 {
-    [ApiController]
+	[ApiController]
     [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
         private DataContext _context;
-        public ProductController(DataContext context)
+        public ProductController(DataContext context, IConfiguration _configutation)
         {
             _context = context;
+			_configuration = _configutation;
         }
 
         [HttpGet("{pageIndex:int}/{pageSize:int}")]
@@ -39,9 +42,10 @@ namespace webapi.Controllers
         [HttpGet]
         public IActionResult getProducts()
         {
-            var products = _context.products.
-                Include(products => products.product_category).
+			var products = _context.products.
+				Include(products => products.product_category).
 				Include(products => products.product_variants).
+				OrderByDescending(product => product.id).
 				ToList();
 
             return Ok(new ApiResponseWrapper("", products.ToArray()));
@@ -90,16 +94,18 @@ namespace webapi.Controllers
 		}
 
         [HttpPost("StoreProduct")]
-        public IActionResult storeProduct([FromBody] StoreProductDto productDto)
+        public IActionResult StoreProduct([FromBody] StoreProductDto productDto)
         {
-            ProductCategories product_category = _context.product_categories.Find(productDto.ProductCategoryId);
-
-            Products? product = new Products
+            Console.WriteLine("here");
+			Console.WriteLine(productDto);
+			Console.WriteLine("there");
+			ProductCategories product_category = _context.product_categories.Find(productDto.ProductCategoryId);
+			Products? product = new Products
 			{
 				product_category = product_category,
 				name = productDto.Name,
 				desc = productDto.Description,
-				url = "product.url",
+				url = "url",
 				sizing_type = productDto.SizingType,
 				created_at = DateTime.Now,
 				created_by = 1,
@@ -107,30 +113,28 @@ namespace webapi.Controllers
 			_context.products.Add(product);
 			_context.SaveChanges();
 
-
-			foreach(var prouctVariant in productDto.ProductVariants)
+			foreach (var prouctVariant in productDto.ProductVariants)
 			{
-                ProductVariant productVariants = new ProductVariant
-                {
-                    quantity = prouctVariant.Quantity,
-                    size = prouctVariant.Size,
-                    color = prouctVariant.Color,
-                    length = prouctVariant.Length,
-                    price = productDto.Price,
-                    product = product,
+				ProductVariant productVariants = new ProductVariant
+				{
+					quantity = prouctVariant.Quantity,
+					size = prouctVariant.Size,
+					color = prouctVariant.Color,
+					length = prouctVariant.Length,
+					price = productDto.Price,
+					product = product,
 					created_at = DateTime.Now,
 					created_by = 1,
-                };
+				};
 
 				_context.product_variants.Add(productVariants);
-            }
-
+			}
 			_context.SaveChanges();
 
-            var productStored = _context.products.Where(p => p.id == product.id).ToList();
+			var productStored = _context.products.Where(p => p.id == product.id).ToList();
 
-            return Ok(new ApiResponseWrapper("", productStored.ToArray()));
-        }
+			return Ok(new ApiResponseWrapper("", productStored.ToArray()));
+		}
 
         [HttpPatch("PatchProduct")]
         public IActionResult PatchProduct([FromBody] StoreProductDto productDto)
@@ -143,7 +147,7 @@ namespace webapi.Controllers
 				updateProduct.product_category = product_category;
 				updateProduct.name = productDto.Name;
 				updateProduct.desc = productDto.Description;
-				updateProduct.url = "need to change this";
+				updateProduct.url = "update";
 				updateProduct.sizing_type = productDto.SizingType;
 				updateProduct.moodified_at = DateTime.Now;
 				updateProduct.modified_by = 1;
