@@ -48,7 +48,7 @@ namespace webapi.Controllers
 			{
 				return BadRequest();
 			}
-			userObj.role = "User";
+			userObj.role = "user";
 			await _context.users.AddAsync(userObj);
 			await _context.SaveChangesAsync();
 			return Ok(new
