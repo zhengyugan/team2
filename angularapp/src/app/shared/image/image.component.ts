@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./image.component.css']
 })
 export class ImageComponent {
-  imageURL = 'https://localhost:7007/api/images/Picture1.png';
+  imageURL = 'https://team2webapp001.azurewebsites.net/api/images/Picture1.png';
 }

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class SalesDataService {
-  baseUrl: string = 'https://localhost:7056/api/';
+  baseUrl: string = 'https://team2webapp001.azurewebsites.net/api/';
 
   constructor(private http: HttpClient) { }
 
